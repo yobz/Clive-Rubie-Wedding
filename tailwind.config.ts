@@ -1,0 +1,2 @@
+// Tailwind v4 uses matching @theme tokens in app/globals.css.
+export default {theme:{extend:{colors:{cream:'#FBF9F5',sampaguita:'#F4F1EA',mahogany:'#4A2C2A',rattan:'#D4A359',terracotta:'#C85A32',leaf:'#6A7B66'},fontFamily:{serif:['Cormorant Garamond','Georgia','serif'],sans:['Inter','sans-serif']},keyframes:{arrive:{from:{opacity:'0',transform:'translateY(12px)'},to:{opacity:'1',transform:'translateY(0)'}}},animation:{arrive:'arrive .7s ease-out both'}}}};
