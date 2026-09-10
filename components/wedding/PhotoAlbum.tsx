@@ -4,11 +4,11 @@ import { ArrowLeft, ArrowRight, Maximize2 } from 'lucide-react';
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 
 const photos = [
-  { src: '/photos/portrait.jpg', title: 'A little closer', alt: 'The couple sharing a tender moment in embroidered Filipiniana attire' },
-  { src: '/photos/heritage.jpg', title: 'Where our roots meet', alt: 'The couple beneath woven arches and hanging lanterns' },
-  { src: '/photos/gallery-one.jpg', title: 'Just us, together', alt: 'The couple holding hands beside a stone wall and cobbled pathway' },
-  { src: '/photos/walk.jpg', title: 'Hand in hand', alt: 'The couple smiling at each other while walking beside a stone wall' },
-  { src: '/photos/gallery-two.jpg', title: 'Our kind of forever', alt: 'The couple embracing beneath an illuminated stone arch' },
+  { src: '/photos/revamp/tunnel-story.jpg', title: 'Where our roots meet', alt: 'The couple together beneath a historic stone arch' },
+  { src: '/photos/revamp/tunnel-embrace.jpg', title: 'A little closer', alt: 'The couple sharing a tender moment beneath a heritage arch' },
+  { src: '/photos/revamp/indoor-portrait.jpg', title: 'A style of her own', alt: 'The bride smiling in embroidered Filipiniana attire' },
+  { src: '/photos/revamp/indoor-full-length.jpg', title: 'Every detail matters', alt: 'The bride showing the full detail of her Filipiniana ensemble' },
+  { src: '/photos/revamp/indoor-detail.jpg', title: 'Little beautiful things', alt: 'The bride holding a floral hand fan in embroidered Filipiniana attire' },
 ];
 
 export function PhotoAlbum() {

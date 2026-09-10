@@ -3,7 +3,7 @@ import { ArrowDown, ArrowUpRight } from 'lucide-react';
 export function FilipinianaHeader() {
   return (
     <section className="cinematic-hero" id="home" aria-labelledby="hero-title">
-      <div className="banner-image-wrap"><img className="banner-image" src="/photos/banner.jpg" alt="The couple together in Filipiniana attire amid heritage architecture" width="2400" height="1600" fetchPriority="high" /></div>
+      <div className="banner-image-wrap"><img className="banner-image" src="/photos/revamp/tunnel-hero.jpg" alt="The couple sharing a kiss beneath an illuminated heritage arch" width="1800" height="1200" fetchPriority="high" /></div>
       <div className="banner-shade" aria-hidden="true" />
       <div className="banner-frame" aria-hidden="true" />
       <div className="banner-topline"><span>WITH THE BLESSING OF OUR FAMILIES</span><span>MANILA, PHILIPPINES</span></div>
