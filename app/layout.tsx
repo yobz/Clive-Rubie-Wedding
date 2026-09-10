@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "./heritage.css";
 
 export const metadata: Metadata = {
   title: "Isabel & Mateo | Together, at last",
   description: "Celebrate love, family, and Filipino heritage with Isabel and Mateo. February 20, 2027, Intramuros, Manila.",
+  robots: { index: false, follow: false },
   other: {
     "codex-preview": "development",
   },

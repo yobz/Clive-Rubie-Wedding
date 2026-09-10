@@ -1,3 +1,30 @@
-import { ArrowDown,ArrowUpRight } from 'lucide-react';
+import { ArrowDown, ArrowUpRight } from 'lucide-react';
 import { weddingData } from '@/lib/wedding-data';
-export function FilipinianaHeader(){return <section className="hero" id="home" aria-labelledby="hero-title"><div className="hero-copy"><span className="eyebrow">WITH FULL HEARTS & THE BLESSING OF OUR FAMILIES</span><div className="mini-rule"/><p className="invitation-line">Together, we begin forever.</p><h1 id="hero-title">Isabel <span>&</span><br/>Mateo</h1><p className="hero-description">Two hearts. One beautiful beginning.<br/>We would be honored to have you with us.</p><div className="hero-date"><span>20</span><div>FEBRUARY 2027<small>SATURDAY · INTRAMUROS, MANILA</small></div></div><a href="#rsvp" className="button">RSVP now <ArrowUpRight size={17}/></a><p className="respond-by">Kindly respond by {weddingData.deadline}</p></div><div className="hero-visual"><img src="/wedding-tablescape.jpg" alt="An intimate wedding table with white flowers, candlelight, and crystal glassware" width="1000" height="1400" fetchPriority="high"/><div className="photo-shade"/><div className="photo-caption"><span>ISANG PAG-IBIG. ISANG PANGAKO.</span><p>A love to come home to.</p></div><span className="photo-number">I & M / 02.20.27</span></div><a className="discover" href="#story"><ArrowDown size={15}/> OUR STORY, OUR FOREVER</a></section>}
+
+export function FilipinianaHeader() {
+  return (
+    <section className="hero heirloom-hero" id="home" aria-labelledby="hero-title">
+      <div className="hero-topline"><span>A CELEBRATION OF LOVE & HERITAGE</span><span>MANILA, PHILIPPINES</span></div>
+      <figure className="heirloom-portrait">
+        <div className="portrait-frame"><img src="/photos/portrait.jpg" alt="The couple sharing a kiss in embroidered Filipiniana attire, surrounded by woven furnishings" width="1200" height="1800" fetchPriority="high" /></div>
+        <figcaption>Sa bawat bukas, ikaw.</figcaption>
+      </figure>
+      <div className="hero-copy invitation-paper">
+        <span className="paper-monogram" aria-hidden="true">I & M</span>
+        <span className="eyebrow">TOGETHER WITH OUR FAMILIES</span>
+        <p className="invitation-line">With love, we invite you to the wedding of</p>
+        <h1 id="hero-title">Isabel <span>&</span><br />Mateo</h1>
+        <p className="hero-description">A promise for a lifetime.<br />A day to share with you.</p>
+        <div className="hero-date"><span>20</span><div>FEBRUARY 2027<small>SATURDAY · INTRAMUROS, MANILA</small></div></div>
+        <a href="#rsvp" className="button">Join our celebration <ArrowUpRight size={17} /></a>
+        <p className="respond-by">Kindly respond by {weddingData.deadline}</p>
+      </div>
+      <figure className="heirloom-scene">
+        <p className="scene-note">Something old.<br /><em>Something forever.</em></p>
+        <div className="scene-frame"><img src="/photos/heritage.jpg" alt="The couple holding hands beneath woven lattice arches and warm hanging lanterns" width="1800" height="1200" /></div>
+        <figcaption>ROOTED IN TRADITION. WRITTEN WITH LOVE.</figcaption>
+      </figure>
+      <a className="discover" href="#story"><ArrowDown size={15} /> TURN THE PAGE</a>
+    </section>
+  );
+}
