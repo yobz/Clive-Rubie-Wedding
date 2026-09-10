@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import "./heritage.css";
+import "./cinematic.css";
 
 export const metadata: Metadata = {
   title: "Isabel & Mateo | Together, at last",

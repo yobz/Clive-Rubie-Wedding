@@ -1,30 +1,20 @@
 import { ArrowDown, ArrowUpRight } from 'lucide-react';
-import { weddingData } from '@/lib/wedding-data';
 
 export function FilipinianaHeader() {
   return (
-    <section className="hero heirloom-hero" id="home" aria-labelledby="hero-title">
-      <div className="hero-topline"><span>A CELEBRATION OF LOVE & HERITAGE</span><span>MANILA, PHILIPPINES</span></div>
-      <figure className="heirloom-portrait">
-        <div className="portrait-frame"><img src="/photos/portrait.jpg" alt="The couple sharing a kiss in embroidered Filipiniana attire, surrounded by woven furnishings" width="1200" height="1800" fetchPriority="high" /></div>
-        <figcaption>Sa bawat bukas, ikaw.</figcaption>
-      </figure>
-      <div className="hero-copy invitation-paper">
-        <span className="paper-monogram" aria-hidden="true">I & M</span>
-        <span className="eyebrow">TOGETHER WITH OUR FAMILIES</span>
-        <p className="invitation-line">With love, we invite you to the wedding of</p>
-        <h1 id="hero-title">Isabel <span>&</span><br />Mateo</h1>
-        <p className="hero-description">A promise for a lifetime.<br />A day to share with you.</p>
-        <div className="hero-date"><span>20</span><div>FEBRUARY 2027<small>SATURDAY · INTRAMUROS, MANILA</small></div></div>
-        <a href="#rsvp" className="button">Join our celebration <ArrowUpRight size={17} /></a>
-        <p className="respond-by">Kindly respond by {weddingData.deadline}</p>
+    <section className="cinematic-hero" id="home" aria-labelledby="hero-title">
+      <div className="banner-image-wrap"><img className="banner-image" src="/photos/banner.jpg" alt="The couple together in Filipiniana attire amid heritage architecture" width="2400" height="1600" fetchPriority="high" /></div>
+      <div className="banner-shade" aria-hidden="true" />
+      <div className="banner-frame" aria-hidden="true" />
+      <div className="banner-topline"><span>WITH THE BLESSING OF OUR FAMILIES</span><span>MANILA, PHILIPPINES</span></div>
+      <div className="banner-copy">
+        <p className="banner-eyebrow">A LOVE ROOTED IN TRADITION</p>
+        <h1 id="hero-title"><span className="banner-name">Isabel</span><span className="banner-ampersand">&</span><span className="banner-name">Mateo</span></h1>
+        <p className="banner-promise">Sa bawat bukas, ikaw.</p>
+        <div className="banner-date"><span>FEBRUARY 20, 2027</span><span aria-hidden="true">·</span><span>INTRAMUROS, MANILA</span></div>
+        <div className="banner-actions"><a className="button" href="#rsvp">Celebrate with us <ArrowUpRight size={17} /></a><a className="banner-story-link" href="#story">Our story <ArrowDown size={16}/></a></div>
       </div>
-      <figure className="heirloom-scene">
-        <p className="scene-note">Something old.<br /><em>Something forever.</em></p>
-        <div className="scene-frame"><img src="/photos/heritage.jpg" alt="The couple holding hands beneath woven lattice arches and warm hanging lanterns" width="1800" height="1200" /></div>
-        <figcaption>ROOTED IN TRADITION. WRITTEN WITH LOVE.</figcaption>
-      </figure>
-      <a className="discover" href="#story"><ArrowDown size={15} /> TURN THE PAGE</a>
+      <div className="banner-bottom"><span>ISANG PAG-IBIG. ISANG PANGAKO.</span><a href="#story" className="banner-scroll" aria-label="Scroll to our story"><span>SCROLL TO DISCOVER</span><ArrowDown size={17}/></a><span>02 / 20 / 27</span></div>
     </section>
   );
 }

@@ -107,6 +107,20 @@ Replace the filename with the pending migration and `DB` with your D1 binding na
 - `npm run start`: preview the built Worker locally with D1/R2 support
 - `npm run db:generate`: generate Drizzle migrations after schema changes
 
+## Vercel deployment
+
+The invitation can deploy to Vercel with the native Next.js build. RSVP storage
+uses Neon through `@neondatabase/serverless`.
+
+1. Create a Neon database and run `db/neon-schema.sql` in its SQL editor.
+2. Import this repository into Vercel with the default Next.js build settings.
+3. Add `DATABASE_URL` in the Vercel project environment variables for Preview
+  and Production, using the connection string from Neon.
+4. Deploy and submit a test RSVP from the invitation.
+
+The Cloudflare/Vinext commands remain available for the existing local D1
+preview. They are not required by Vercel's native Next.js deployment.
+
 When using the Sites plugin, follow its skill instructions for installation, builds, and publishing. These npm commands remain available for standalone use.
 
 Like the Sites package, `npm run build` runs `vinext build` directly; it does not require a host `timeout` command.
