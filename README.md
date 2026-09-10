@@ -56,7 +56,9 @@ export default async function Home() {
   const requestHeaders = await headers();
   const userId = requestHeaders.get("oai-authenticated-user-id");
   const email = requestHeaders.get("oai-authenticated-user-email");
-  const encodedFullName = requestHeaders.get("oai-authenticated-user-full-name");
+  const encodedFullName = requestHeaders.get(
+    "oai-authenticated-user-full-name",
+  );
   const fullName =
     encodedFullName &&
     requestHeaders.get("oai-authenticated-user-full-name-encoding") ===
@@ -106,20 +108,6 @@ Replace the filename with the pending migration and `DB` with your D1 binding na
 - `npm run build`: build the deployable Sites artifact
 - `npm run start`: preview the built Worker locally with D1/R2 support
 - `npm run db:generate`: generate Drizzle migrations after schema changes
-
-## Vercel deployment
-
-The invitation can deploy to Vercel with the native Next.js build. RSVP storage
-uses Neon through `@neondatabase/serverless`.
-
-1. Create a Neon database and run `db/neon-schema.sql` in its SQL editor.
-2. Import this repository into Vercel with the default Next.js build settings.
-3. Add `DATABASE_URL` in the Vercel project environment variables for Preview
-  and Production, using the connection string from Neon.
-4. Deploy and submit a test RSVP from the invitation.
-
-The Cloudflare/Vinext commands remain available for the existing local D1
-preview. They are not required by Vercel's native Next.js deployment.
 
 When using the Sites plugin, follow its skill instructions for installation, builds, and publishing. These npm commands remain available for standalone use.
 
