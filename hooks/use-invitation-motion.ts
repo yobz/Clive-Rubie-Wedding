@@ -6,6 +6,7 @@ export function useInvitationMotion() {
   useEffect(() => {
     const media = window.matchMedia('(prefers-reduced-motion: reduce)');
     const root = document.documentElement;
+    document.querySelector('.monogram')?.setAttribute('aria-label', 'Clive and Rubie, home');
     const targets = Array.from(document.querySelectorAll<HTMLElement>('.section-heading, .story-photograph, .story-grid article, .event-card, .attire > div, .rsvp-intro, .rsvp-form, .gifts > h2, .gifts > p, .faq > div, .album-heading, .album-card'));
     let reveal: IntersectionObserver | undefined;
     const setup = () => {
@@ -25,11 +26,16 @@ export function useInvitationMotion() {
       });
     };
     let frame = 0;
+    let previousScrollY = window.scrollY;
     const update = () => {
       frame = 0;
       const height = root.scrollHeight - window.innerHeight;
-      root.style.setProperty('--reading-progress', `${height > 0 ? window.scrollY / height : 0}`);
-      root.classList.toggle('page-scrolled', window.scrollY > 70);
+      const scrollY = window.scrollY;
+      root.style.setProperty('--reading-progress', `${height > 0 ? scrollY / height : 0}`);
+      root.classList.toggle('page-scrolled', scrollY > 70);
+      if (scrollY < 24 || scrollY < previousScrollY) root.classList.remove('page-header-hidden');
+      else if (scrollY > previousScrollY + 4) root.classList.add('page-header-hidden');
+      previousScrollY = scrollY;
     };
     const onScroll = () => { if (!frame) frame = requestAnimationFrame(update); };
     setup(); update();
@@ -42,7 +48,7 @@ export function useInvitationMotion() {
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onScroll);
       targets.forEach(el => { el.classList.remove('reveal-pending', 'reveal-item'); el.style.removeProperty('--reveal-delay'); });
-      root.classList.remove('page-scrolled'); root.style.removeProperty('--reading-progress');
+      root.classList.remove('page-scrolled', 'page-header-hidden'); root.style.removeProperty('--reading-progress');
     };
   }, []);
 }

@@ -9,7 +9,7 @@ export function FilipinianaHeader() {
       <div className="banner-topline"><span>WITH THE BLESSING OF OUR FAMILIES</span><span>MANILA, PHILIPPINES</span></div>
       <div className="banner-copy">
         <p className="banner-eyebrow">A LOVE ROOTED IN TRADITION</p>
-        <h1 id="hero-title"><span className="banner-name">Isabel</span><span className="banner-ampersand">&</span><span className="banner-name">Mateo</span></h1>
+        <h1 id="hero-title"><span className="banner-name">Clive</span><span className="banner-ampersand">&</span><span className="banner-name">Rubie</span></h1>
         <p className="banner-promise">Sa bawat bukas, ikaw.</p>
         <div className="banner-date"><span>FEBRUARY 20, 2027</span><span aria-hidden="true">·</span><span>INTRAMUROS, MANILA</span></div>
         <div className="banner-actions"><a className="button" href="#rsvp">Celebrate with us <ArrowUpRight size={17} /></a><a className="banner-story-link" href="#story">Our story <ArrowDown size={16}/></a></div>

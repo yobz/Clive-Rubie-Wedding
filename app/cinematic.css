@@ -159,9 +159,37 @@
 .album-expand { background: #fff8f2e8; }
 .album-hint { margin-top: 10px; }
 .album-lightbox { color: #2f2730; }
+.album-track {
+  gap: 22px;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  overscroll-behavior-inline: contain;
+}
+.album-track::-webkit-scrollbar { display: none; }
+.album-card {
+  flex-basis: min(62vw, 760px);
+  scroll-snap-align: center;
+  border: 0;
+  background: #302731;
+}
+.album-card:first-child { flex-basis: min(68vw, 840px); }
+.album-card:nth-child(n + 3) { flex-basis: min(42vw, 520px); }
+.album-image, .album-image img { aspect-ratio: 16 / 10; }
+.album-caption { inset: auto 24px 22px; }
+.album-caption > span { font-size: clamp(1.2rem, 2.4vw, 2rem); }
+.album-controls button { width: 54px; height: 54px; border-radius: 50%; }
+.album-hint::before {
+  content: '01 — 05';
+  display: block;
+  margin-bottom: 10px;
+  color: #f1b7c5;
+  font-family: 'Bodoni Moda', Georgia, serif;
+  font-size: 18px;
+}
 @media (max-width: 760px) {
   .photo-album { padding-top: 70px; }
-  .album-card { flex-basis: 80vw; }
+  .album-card, .album-card:first-child, .album-card:nth-child(n + 3) { flex-basis: 86vw; }
+  .album-image, .album-image img { aspect-ratio: 4 / 5; }
 }
 
 /* The invitation shell is intentionally suspended over the story. */
@@ -187,9 +215,72 @@
   border-color: #d2b7bf;
 }
 .site-header .monogram { color: inherit; }
+.site-header .monogram {
+  position: relative;
+  width: 74px;
+  height: 42px;
+  overflow: hidden;
+  font-size: 0;
+  letter-spacing: 0;
+}
+.site-header .monogram::before {
+  content: 'R';
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-family: 'Pinyon Script', cursive;
+  font-size: 38px;
+  line-height: 1;
+}
+.site-header .monogram::after {
+  content: '& C.';
+  position: absolute;
+  right: 0;
+  bottom: 3px;
+  font-family: 'Bodoni Moda', Georgia, serif;
+  font-size: 17px;
+  letter-spacing: .02em;
+}
 .site-header .navigation a, .site-header .nav-rsvp { color: inherit; }
 .site-header .navigation { background: transparent !important; }
 .site-header .nav-rsvp { border-color: currentColor; }
+.site-header .navigation {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 8px;
+  padding: 12vh 10vw;
+  background: #241b24f7 !important;
+  color: #fff8f2;
+  backdrop-filter: blur(24px);
+}
+.site-header .navigation.is-open { display: flex; }
+.site-header .navigation a {
+  padding: 8px 0;
+  font-family: 'Bodoni Moda', Georgia, serif;
+  font-size: clamp(2.4rem, 7vw, 6rem);
+  line-height: 1.05;
+  letter-spacing: -.04em;
+  color: #fff8f2;
+}
+.site-header .navigation a::after { bottom: 2px; background: #f1b7c5; }
+.site-header > .monogram, .site-header > .header-actions { position: relative; z-index: 2; }
+.site-header .menu-toggle {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  background: transparent;
+  color: inherit;
+}
+.site-header .menu-toggle:hover { background: #f1b7c5; color: #492733; }
+.site-header .menu-toggle svg { width: 18px; height: 18px; }
 .cinematic-hero { min-height: 100svh; height: 100svh; max-height: none; }
 .banner-copy { bottom: 16%; }
 .banner-frame { inset: 42px; border-color: #fffdfc5c; }
@@ -219,7 +310,7 @@
     height: 58px !important;
     padding-inline: 17px !important;
   }
-  .site-header .navigation { top: 66px; border: 1px solid #d2b7bf; border-radius: 8px; box-shadow: 0 18px 35px #241b2426; }
+  .site-header .navigation { top: 0; border: 0; border-radius: 0; box-shadow: none; }
   .cinematic-hero { min-height: 100svh; height: 100svh; }
   .banner-frame { inset: 22px 14px; }
   .banner-copy { bottom: 14%; }
@@ -228,5 +319,75 @@
   .event-card { min-height: 0; }
 }
 @media (min-width: 701px) and (max-width: 760px) {
-  .site-header .navigation { top: auto; border: 0; border-radius: 0; box-shadow: none; }
+  .site-header .navigation { top: 0; }
+}
+
+/* Quiet, full-width navigation with direction-aware visibility. */
+.site-header {
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 76px !important;
+  padding-inline: 5% !important;
+  border: 0 !important;
+  border-bottom: 1px solid #fffdfc3d !important;
+  border-radius: 0 !important;
+  background: #241b2466 !important;
+  box-shadow: none !important;
+  backdrop-filter: blur(12px);
+  transform: translateY(0) !important;
+  transition: transform .35s ease, background .35s ease, color .35s ease;
+}
+.page-scrolled .site-header {
+  background: #fffaf5f2 !important;
+  color: #492733 !important;
+  border-bottom-color: #d2b7bf !important;
+}
+.page-header-hidden .site-header { transform: translateY(-100%) !important; }
+.site-header .navigation {
+  display: flex;
+  position: static;
+  inset: auto;
+  z-index: auto;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(18px, 3vw, 42px);
+  padding: 0;
+  background: transparent !important;
+  backdrop-filter: none;
+}
+.site-header .navigation a {
+  padding: 6px 0;
+  font-family: Inter, sans-serif;
+  font-size: 12px;
+  letter-spacing: .08em;
+  line-height: 1;
+  color: inherit;
+}
+.site-header .navigation a::after { bottom: -7px; }
+.site-header .menu-toggle { display: none; }
+.site-header .nav-rsvp { padding: 8px 0; font-size: 12px; }
+@media (max-width: 760px) {
+  .site-header {
+    height: 64px !important;
+    padding-inline: 6% !important;
+  }
+  .site-header .navigation {
+    display: none;
+    position: absolute;
+    inset: 64px 0 auto;
+    z-index: 1;
+    align-items: stretch;
+    flex-direction: column;
+    gap: 0;
+    padding: 12px 6%;
+    border-bottom: 1px solid #d2b7bf;
+    background: #fffaf5 !important;
+    color: #492733;
+  }
+  .site-header .navigation.is-open { display: flex; }
+  .site-header .navigation a { padding: 14px 0; font-size: 13px; }
+  .site-header .menu-toggle { display: grid; width: 38px; height: 38px; border: 0; border-radius: 0; }
+  .site-header .menu-toggle:hover { background: transparent; color: #b94768; }
 }

@@ -1,0 +1,204 @@
+@font-face{font-display:block;font-family:Pinyon;src:url('/invitation/pinyon.ttf')}@font-face{font-display:block;font-family:Cormorant;src:url('/invitation/cormorant.ttf')}@font-face{font-display:block;font-family:Cormorant;src:url('/invitation/cormorant-italic.ttf');font-style:italic}@font-face{font-display:block;font-family:Inter;src:url('/invitation/inter.ttf')}
+:root{--ivory:#FFF9F3;--rose:#B77D87;--rose-light:#E8D1D3;--rose-wash:#F3E7E7;--ink:#67434A;--olive:#496643;--slate:#434966;--gold:#B89A62;--line:#D6BFC0;--body:#594D50;--space-1:8px;--space-2:16px;--space-3:24px;--space-4:32px;--space-5:40px;--space-6:48px;--space-8:64px;--space-9:72px;--space-12:96px;--space-15:120px;--container:1200px;--section-pad:120px;--gutter:24px;--script:Pinyon,cursive;--serif:Cormorant,Georgia,serif;--sans:Cormorant,Georgia,serif}
+
+*{box-sizing:border-box}html{scroll-behavior:auto}body{margin:0;background:var(--ivory);color:var(--ink);font:20px/1.6 var(--serif)}h1,h2,h3,p{margin:0}h1,h2,.script{font-family:var(--script);font-weight:400}h1{font-size:128px;line-height:1.2}h2{font-size:72px;line-height:1.2}h3{font-size:32px;line-height:1.3;font-weight:400}p{color:var(--body)}button,input{font:inherit}a{color:inherit;text-decoration:none}.container{max-width:var(--container);margin:0 auto}.section{padding:var(--section-pad) max(24px,calc((100% - 1200px)/2));position:relative}.section-title{text-align:center;margin-bottom:64px}.section-title .eyebrow{margin-top:16px}.eyebrow{font:12px/1.8 var(--sans);letter-spacing:2px;text-transform:uppercase;color:var(--ink)}.subtitle{font-size:28px;font-style:italic;margin-top:8px}.ornament{display:flex;align-items:center;justify-content:center;gap:20px;color:var(--gold);font-size:24px;margin-top:24px}.ornament:before,.ornament:after{content:'';width:96px;height:1px;background:var(--gold)}.rose{background:var(--rose-light)}.site-nav{height:88px;padding:12px max(24px,calc((100% - 1200px)/2));display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);background:var(--ivory)}.logo{width:80px;height:60px;object-fit:contain}.site-nav nav{display:flex;gap:48px;font:14px var(--sans)}.menu{display:none;border:0;background:none;color:var(--ink);font-size:26px}.hero-title{text-align:center;height:320px;background:var(--rose-wash);padding:40px 24px;position:relative}.hero-title h1{margin:8px 0}.hero-title .ornament{margin-top:12px}.hero-photo{height:560px;position:relative;overflow:hidden}.hero-photo>img{width:100%;height:100%;object-fit:cover;object-position:50% 60%}.hero-photo>p{position:absolute;left:max(24px,calc((100% - 1200px)/2));bottom:56px;color:var(--ivory);font:14px/2 var(--sans);text-transform:uppercase;letter-spacing:3px}.lace{position:absolute;top:0;width:120px;height:120px;background-image:url('/invitation/decor.png');background-size:200% 100%;background-position:left center;pointer-events:none}.lace.left{left:0}.lace.right{right:0;transform:scaleX(-1)}.countdown{text-align:center}.countdown .eyebrow{margin-top:16px}.count-grid{display:grid;grid-template-columns:repeat(4,1fr);max-width:640px;margin:48px auto}.count-grid>div+div{border-left:1px solid var(--gold)}.count-grid b{display:block;font-size:44px;font-weight:400;line-height:1.4}.count-grid span{font:12px var(--sans);letter-spacing:2px;text-transform:uppercase}.invitation-note{font-size:24px;line-height:1.6}.story-layout{display:grid;grid-template-columns:1.25fr 1fr;gap:64px;align-items:stretch}.story-photo{width:100%;height:580px;object-fit:cover;object-position:70% 55%;border:1px solid var(--gold);padding:4px;background:var(--ivory)}.chapters{border-left:1px solid var(--rose);padding:0 0 0 40px;display:flex;flex-direction:column;justify-content:space-between}.chapters article{position:relative;padding-bottom:8px}.chapters article:before{content:'◇';position:absolute;left:-49px;top:24px;color:var(--gold);background:var(--rose-light);font-size:24px;line-height:1}.chapters small{font:12px var(--sans);color:var(--ink);letter-spacing:2px}.chapters h3{margin:8px 0 12px}.chapters p{font-size:20px;line-height:1.6}.sprig{position:absolute;width:96px;height:112px;background:url('/invitation/decor.png') right center / 200% 100% no-repeat;pointer-events:none}.story-sprig{bottom:24px;right:24px}.venue{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:end}.venue+.venue{margin-top:96px}.venue .script{font-size:48px;margin-bottom:24px}.venue-photo{display:block;width:100%;height:360px;object-fit:cover}.venue:first-of-type .venue-photo{object-position:center 70%}.venue-info>p{margin:8px 0 24px}.map-placeholder{height:220px;background:#edf0e9;border:1px solid #bac6b5;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;text-align:center;color:var(--olive);padding:24px}.map-placeholder .pin{font-size:42px;line-height:1}.map-placeholder strong{font:18px var(--serif)}.map-placeholder>span:last-child{font:12px/1.5 var(--sans);max-width:260px}.button{min-height:52px;padding:12px 24px;border:1px solid var(--ink);background:var(--ink);color:var(--ivory);font:14px/1.6 var(--sans);letter-spacing:1px;display:flex;align-items:center;justify-content:center;gap:32px;border-radius:4px}.venue-info .button{margin-top:16px;width:100%}.programme{border-top:1px solid var(--line)}.timeline{list-style:none;max-width:720px;margin:0 auto;padding:0}.timeline li{display:flex;gap:32px;padding:0 0 48px;position:relative}.timeline li:not(:last-child):before{content:'';position:absolute;left:27px;top:56px;bottom:0;border-left:1px solid var(--rose)}.timeline li:last-child{padding-bottom:0}.timeline-mark{width:56px;height:56px;border:1px solid var(--ink);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font:14px var(--sans);color:var(--slate)}.timeline h3{font-family:var(--script);font-size:40px;line-height:1.2;margin-bottom:12px}.traditions{background:#fbf6f1}.tradition-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}.tradition-grid article{padding:32px;min-height:180px;border:1px solid var(--line);border-left:3px solid var(--olive);border-radius:12px}.tradition-grid h3{font-size:28px;font-style:italic;margin-bottom:16px}.confirmation{text-align:center;font-size:18px;font-style:italic;margin-top:40px}.colours{padding-top:96px;padding-bottom:96px}.swatches{display:flex;justify-content:center;gap:40px}.swatches>div{text-align:center}.swatches i{display:block;width:88px;height:88px;border-radius:50%;border:1px solid #c8bab6;box-shadow:inset 0 0 0 4px #ffffff40;margin-bottom:16px}.swatches span{font-size:18px}.attire{position:relative;border-top:1px solid var(--line)}.attire-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;text-align:center}.outfit{height:480px;width:100%;max-width:460px;margin:auto;background-image:url('/invitation/outfits-ivory.png');background-repeat:no-repeat;background-size:200% 100%}.woman{background-position:left center}.man{background-position:right center}.attire .script{font-size:44px;margin:24px 0 8px}.faq-list{max-width:960px;margin:auto;display:grid;gap:16px}.faq-list>div{min-height:72px;border:1px solid var(--line);border-radius:8px;padding:20px 24px;display:flex;justify-content:space-between;align-items:center;font-size:24px}.reminder-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:48px;text-align:center}.line-icon{display:block;font:40px/1 var(--serif);color:var(--ink);margin-bottom:24px}.reminder-grid h3{font-size:28px;font-style:italic;margin-bottom:12px}.gifts{text-align:center;padding-top:96px;padding-bottom:96px}.gifts h2{font-size:56px}.gifts p{margin-top:16px}.gift-left{left:24px;bottom:40px;transform:scaleX(-1)}.gift-right{right:24px;bottom:40px}.rsvp-section{padding:0 max(24px,calc((100% - 1200px)/2))}.rsvp-panel{padding:64px;background:var(--rose-wash);border-radius:16px;text-align:center}.rsvp-panel>.eyebrow{margin-top:16px}.rsvp-row{display:flex;align-items:center;justify-content:center;gap:24px;margin-top:40px}.name{flex:1;min-width:0}.name input{width:100%;height:52px;border:1px solid var(--line);border-radius:4px;background:var(--ivory);padding:12px 16px;color:var(--ink);font-size:20px}.attendance{display:flex;gap:24px;white-space:nowrap;font-size:20px}.attendance>span{display:flex;align-items:center;gap:8px}.radio{display:block;width:22px;height:22px;border:1px solid var(--ink);border-radius:50%;background:var(--ivory)}.radio.selected{box-shadow:inset 0 0 0 4px var(--ivory);background:var(--ink)}footer{text-align:center;padding:80px 24px}.footer-logo{display:flex;gap:32px;align-items:center;justify-content:center}.footer-logo img{width:110px;height:84px;object-fit:contain}.footer-logo span{height:1px;width:120px;background:var(--gold)}.hashtag{font-size:28px;margin:24px 0 16px;color:var(--ink)}.sr-only{position:absolute;clip:rect(0,0,0,0);width:1px;height:1px;overflow:hidden}.measure [data-spec]{outline:1px dashed #434966;outline-offset:-1px}.measure [data-spec]:before{content:attr(data-spec);position:absolute;left:8px;top:8px;background:#434966;color:white;font:12px/1.5 Inter;padding:4px 8px;z-index:4}.measure [data-spec]{position:relative}
+@media(max-width:767px){:root{--section-pad:72px}body{font-size:18px;line-height:1.6}.container{width:100%}.section{padding-left:24px;padding-right:24px}h1{font-size:64px;line-height:1.25}h2{font-size:48px;line-height:1.25}h3{font-size:28px}.eyebrow{font-size:12px;letter-spacing:1.4px}.section-title{margin-bottom:40px}.subtitle{font-size:24px;line-height:1.4}.ornament{margin-top:24px}.ornament:before,.ornament:after{width:64px}.site-nav{height:72px;padding:8px 24px}.logo{width:64px;height:48px}.site-nav nav{display:none}.menu{display:block}.hero-title{height:300px;padding:48px 24px}.hero-title h1{margin:16px -8px}.hero-photo{height:460px}.hero-photo>img{object-position:79% 60%}.hero-photo>p{display:none}.lace{width:64px;height:64px}.count-grid{margin:32px auto;gap:0}.count-grid b{font-size:32px}.count-grid span{font-size:10px;letter-spacing:1px}.invitation-note{font-size:22px}.desktop-only{display:none}.story-layout{display:grid;grid-template-columns:1fr;gap:40px}.story-photo{height:320px;object-position:75% 55%}.chapters{padding-left:28px;gap:40px}.chapters article:before{left:-37px}.chapters h3{font-size:28px}.chapters p{font-size:18px;line-height:1.6}.story{padding-bottom:112px}.story-sprig{width:64px;height:80px;right:16px;bottom:16px}.venue{grid-template-columns:1fr;gap:24px}.venue+.venue{margin-top:64px}.venue .script{font-size:40px;margin-bottom:20px}.venue-photo{height:248px}.venue-info h3{font-size:28px}.map-placeholder{height:200px}.timeline li{gap:20px;padding-bottom:40px}.timeline-mark{width:44px;height:44px;font-size:12px}.timeline li:not(:last-child):before{left:21px;top:44px}.timeline h3{font-size:36px}.timeline p{font-size:18px}.tradition-grid{grid-template-columns:1fr;gap:16px}.tradition-grid article{padding:24px;min-height:0}.tradition-grid h3{font-size:26px;margin-bottom:12px}.confirmation{font-size:17px;margin-top:32px}.colours{padding-top:72px;padding-bottom:72px}.swatches{gap:16px;justify-content:space-between}.swatches i{width:48px;height:48px;margin-bottom:12px}.swatches span{font-size:14px;display:block;max-width:52px;line-height:1.3}.attire-grid{grid-template-columns:1fr;gap:56px}.outfit{height:340px;max-width:320px}.attire .script{font-size:40px;margin-top:20px}.faq-list{gap:12px}.faq-list>div{font-size:22px;min-height:64px;padding:16px 20px}.reminder-grid{grid-template-columns:1fr;gap:40px}.reminder-grid h3{font-size:28px}.line-icon{margin-bottom:16px}.gifts{padding:72px 40px 96px}.gifts h2{font-size:42px}.gift-left,.gift-right{width:44px;height:64px;bottom:16px}.gift-left{left:16px}.gift-right{right:16px}.rsvp-section{padding:0 24px}.rsvp-panel{padding:40px 24px;border-radius:12px}.rsvp-panel h2{font-size:46px}.rsvp-row{flex-direction:column;gap:24px;margin-top:32px;align-items:stretch}.name{flex:auto}.attendance{font-size:18px;gap:16px;justify-content:center}.rsvp-row .button{width:100%}footer{padding:64px 24px}.footer-logo{gap:24px}.footer-logo img{width:88px;height:68px}.footer-logo span{width:64px}.hashtag{font-size:24px;margin:24px 0 16px}footer .eyebrow{font-size:11px;letter-spacing:1px}}
+
+.outfit.woman{background-size:169.5% 100%}.outfit.man{background-size:243.9% 100%}
+.outfit.woman{max-width:425px;clip-path:polygon(0 0,94% 0,94% 60%,100% 80%,100% 100%,0 100%)}.outfit.man{max-width:297px}@media(max-width:767px){.outfit.woman{max-width:300px}.outfit.man{max-width:211px}}
+
+.gold-diamond{display:block;flex:0 0 24px;width:24px;height:24px;background:url('/invitation/gold-diamond.svg') center/contain no-repeat}.chapters article:before{content:'';width:24px;height:24px;left:-53px;top:36px;background:var(--rose-light) url('/invitation/gold-diamond.svg') center/24px 24px no-repeat}.story .ornament{gap:16px;align-items:center}@media(max-width:767px){.chapters article:before{left:-41px;top:33px}}
+
+
+/* Approved reference: one photographic invitation with a soft blush veil. */
+.hero{height:900px;position:relative;margin:12px 16px 0;border:1px solid #d9bd9f;isolation:isolate;background:#f5e3e3}
+.hero-photo{position:absolute;inset:0;height:100%;z-index:-2}
+.hero-photo>img{object-position:78% 62%;filter:brightness(1.26) saturate(1.1);transform:scale(1.12);transform-origin:78% 65%}
+.hero:after{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(180deg,#fff7f1 0%,#f7e4e5 8%,rgba(248,226,229,.97) 19%,rgba(249,231,232,.86) 28%,rgba(248,229,230,.35) 39%,transparent 48%)}
+.hero-title{height:auto;background:none;padding:36px 32px 0;position:static;color:#922747}
+.hero-title>.eyebrow:first-of-type{display:none}
+.hero-title h1{font-size:150px;line-height:1.15;margin:0;color:#922747;letter-spacing:-3px;text-shadow:0 2px 0 #fff6ef}
+.hero-amp{font-family:var(--serif);font-size:.55em;font-style:italic;display:inline-block;margin:0 -10px}
+.hero-title>.eyebrow{font:600 25px/1.5 var(--serif);letter-spacing:5px;color:#922747}
+.hero-title .ornament{margin-top:10px;font-size:26px}
+.hero .lace{width:160px;height:160px;opacity:.9;top:8px}
+.hero-photo>p{display:block;left:64px;bottom:76px;font:600 26px/1.45 var(--serif);letter-spacing:3px;text-shadow:0 2px 10px #000}
+.hero-rule{display:flex;align-items:center;gap:12px;font-size:20px;margin-top:12px}
+.hero-rule:before,.hero-rule:after{content:'';width:70px;height:1px;background:#fff9f3}
+.hero-seal{position:absolute;right:48px;bottom:-24px;width:148px;height:176px;border:2px solid #c6aa72;border-radius:80px 80px 22px 22px;background:linear-gradient(145deg,rgba(35,26,23,.85),rgba(35,26,23,.4));display:grid;place-items:center;box-shadow:inset 0 0 0 5px rgba(255,249,243,.14);z-index:2}
+.hero-seal img{width:130px;height:130px;object-fit:contain}
+@media(max-width:767px){
+.hero{height:680px;margin:8px 10px 0}
+.hero-title{padding:28px 8px 0}
+.hero-title h1{font-size:67px;line-height:1.2;letter-spacing:-2px;white-space:nowrap;margin:0 -4px}
+.hero-amp{margin:0 -5px}
+.hero-title>.eyebrow{font-size:14px;letter-spacing:2.2px;margin-top:8px}
+.hero-title .ornament{font-size:20px;margin-top:4px}
+.hero-title .ornament:before,.hero-title .ornament:after{width:48px}
+.hero .lace{width:74px;height:74px;top:4px}
+.hero-photo>img{object-position:100% 65%;transform:scale(1.08);transform-origin:100% 70%}
+.hero:after{background:linear-gradient(180deg,#fff7f1 0%,#f7e4e5 7%,rgba(248,226,229,.96) 17%,rgba(249,231,232,.8) 24%,rgba(248,229,230,.25) 33%,transparent 42%)}
+.hero-photo>p{left:18px;bottom:66px;font-size:16px;letter-spacing:1.6px;line-height:1.5}
+.hero-rule{font-size:14px;gap:8px}.hero-rule:before,.hero-rule:after{width:38px}
+.hero-seal{right:16px;bottom:-18px;width:90px;height:110px;border-radius:50px 50px 16px 16px}
+.hero-seal img{width:80px;height:80px}
+}
+
+.hero-title h1{-webkit-text-stroke:.5px currentColor}.hero-seal .sprig{bottom:-20px;width:65px;height:95px;filter:sepia(1) saturate(.7) brightness(1.3)}.hero-seal .seal-left{left:-30px;transform:scaleX(-1) rotate(-12deg)}.hero-seal .seal-right{right:-30px;transform:rotate(-12deg)}@media(max-width:767px){.hero-seal .sprig{width:45px;height:65px;bottom:-10px}.hero-seal .seal-left{left:-20px}.hero-seal .seal-right{right:-20px}}
+/* Working invitation interactions; inline SVG avoids missing external ornament glyphs. */
+html{scroll-behavior:smooth;scroll-padding-top:24px}
+button,a,input,textarea,summary{touch-action:manipulation}
+button,summary{cursor:pointer}
+:focus-visible{outline:3px solid #496643;outline-offset:5px}
+.skip-link{position:fixed;left:16px;top:-100px;z-index:100;background:var(--ivory);padding:16px}.skip-link:focus{top:16px}
+.site-nav{position:relative;z-index:5}.menu{background:transparent;border:0;color:var(--ink);min-width:44px;min-height:44px}
+.site-nav a{padding-block:12px}.site-nav nav a:hover{color:#922747}
+.story-photo-frame{position:relative;height:580px;border:1px solid var(--gold);background:var(--ivory);padding:4px;overflow:hidden}
+.story-slide{position:absolute;inset:4px;width:calc(100% - 8px);height:calc(100% - 8px);object-fit:cover;object-position:70% 55%;opacity:0;transition:opacity 1.3s ease}
+.story-slide.is-active{opacity:1}
+.invitation-site .gold-diamond{background:none;display:block;width:24px;height:24px;flex:0 0 24px;color:#B08945}
+.invitation-site .chapters article:before{display:none}
+.chapters article>.gold-diamond{position:absolute;left:-53px;top:36px;background:var(--rose-light);padding:0;overflow:visible}
+.venue-map{margin:24px 0 16px;height:220px;background:#edf0e9}
+.button:hover{background:#922747;transform:translateY(-2px)}.button{transition:background .2s,transform .2s}
+.rsvp-row{align-items:flex-end}.rsvp-row .name{text-align:left}.name>span,.message-field>span{display:block;margin-bottom:10px}
+.attendance{padding:0;border:0;margin:0;flex-wrap:wrap;text-align:left}.attendance legend{margin-bottom:12px}.attendance label{display:flex;align-items:center;gap:8px;min-height:44px}.attendance input{width:20px;height:20px;accent-color:var(--ink)}
+.message-field{display:block;text-align:left;margin-top:28px}.message-field textarea{box-sizing:border-box;display:block;width:100%;min-height:140px;resize:vertical;background:var(--ivory);border:1px solid var(--line);padding:16px;color:var(--ink);font:20px/1.5 var(--serif);border-radius:4px}.optional{font-size:16px}
+.rsvp-actions{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-top:24px}.form-note{font:13px/1.6 var(--sans);text-align:left}.rsvp-status{margin-top:20px;min-height:32px;color:var(--olive);font-size:18px}
+.faq-item{border:1px solid var(--line);border-radius:8px;overflow:hidden}.faq-item summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:20px 24px;min-height:72px;font-size:24px}.faq-item summary::-webkit-details-marker{display:none}.faq-item p{padding:0 24px 24px}.faq-plus{font:24px var(--sans);transition:transform .25s}.faq-item[open] .faq-plus{transform:rotate(45deg)}
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .85s ease,transform .85s ease}.reveal.is-visible{opacity:1;transform:none}
+.hero-title{animation:invitation-arrive 1.1s ease both}@keyframes invitation-arrive{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@media(max-width:767px){.story-photo-frame{height:320px}.chapters article>.gold-diamond{left:-41px;top:33px}.venue-map{height:200px}.site-nav nav.is-open{display:flex;position:absolute;top:72px;left:0;right:0;flex-direction:column;gap:4px;padding:20px 24px;background:var(--ivory);border-bottom:1px solid var(--line);box-shadow:0 12px 24px #67434a12}.rsvp-row{align-items:stretch}.attendance{gap:16px}.rsvp-actions{flex-direction:column;align-items:stretch}.message-field textarea{font-size:18px}.faq-item summary{font-size:22px;padding:18px;min-height:64px}.faq-item p{padding:0 18px 20px}.hero-title h1{font-size:clamp(52px,17vw,67px)}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+.story-slide[src*="indoor"]{object-fit:contain;background:var(--ivory)}
+.scroll-navigation{position:fixed;inset:0 0 auto;z-index:50;height:64px;background:var(--ivory);border-bottom:1px solid var(--line);transform:translateY(-110%);opacity:0;transition:transform .35s ease,opacity .35s ease;visibility:hidden}
+.scroll-navigation.shown{transform:translateY(0);opacity:1;visibility:visible}
+.scroll-navigation nav{height:100%;display:flex;align-items:center;justify-content:center;gap:40px;font:12px var(--sans)}
+.scroll-navigation nav>a{display:flex;align-items:center;justify-content:center;min-height:44px}
+.scroll-navigation .nav-monogram{padding:5px 12px}.nav-monogram img{width:43px;height:48px;object-fit:contain}
+@font-face{font-family:Amsterdam;src:url('/invitation/amsterdam.ttf') format('truetype');font-display:block}
+:root{--script:Amsterdam,cursive}
+html{scroll-padding-top:88px}
+.hero{height:100svh;min-height:600px;margin:0;border:0;background:#171413;display:flex;align-items:flex-end;justify-content:center;padding:0 24px 48px}
+.hero:after{display:none;background:none}
+.hero .lace,.hero-seal,.hero-photo>p,.hero-title .ornament{display:none}
+.hero-photo{inset:0;height:100%;z-index:-1}
+.hero-photo>img{object-fit:cover;object-position:70% 50%;transform:none;filter:none}
+.hero-title{padding:0;height:auto;position:relative;background:none;color:var(--ivory);text-align:center}
+.hero-title h1{font-size:clamp(72px,8vw,116px);line-height:1.65;color:var(--ivory);letter-spacing:0;margin:0;-webkit-text-stroke:0;text-shadow:0 2px 8px #0009}
+.hero-amp{font-size:.65em;margin:0 8px}
+.hero-title>.eyebrow{color:var(--ivory);font:16px/1.8 var(--sans);letter-spacing:3px;text-shadow:0 2px 6px #000}
+h2{font-size:58px;line-height:1.65}.script{line-height:1.65}
+@media(max-width:767px){.scroll-navigation{height:58px}.scroll-navigation nav{gap:16px;font-size:10px}.scroll-navigation .nav-monogram{padding:4px 0}.nav-monogram img{height:40px;width:36px}.hero{height:100svh;min-height:560px;margin:0;padding:0 16px 40px}.hero-photo>img{object-position:85% 50%;transform:none}.hero-title{padding:0}.hero-title h1{font-size:clamp(48px,12vw,76px);letter-spacing:0;white-space:normal;line-height:1.65}.hero-title>.eyebrow{font-size:11px;letter-spacing:2px;margin-top:4px}h2{font-size:40px;line-height:1.65}}
+@media(prefers-reduced-motion:reduce){.scroll-navigation{transition:none}}
+.section-title .subtitle{margin-top:32px}.section-title .eyebrow,.countdown>.container>.eyebrow,.rsvp-panel>.eyebrow{margin-top:32px}.gifts p{margin-top:32px}.attire-grid h3{margin-bottom:20px}.timeline h3{margin-bottom:20px}
+.hero-date{display:block;color:var(--ivory);font:24px/1.5 var(--serif);margin-top:20px;text-shadow:0 2px 8px #000}.hero-countdown{display:flex;justify-content:center;gap:32px;margin-top:24px;color:var(--ivory);text-shadow:0 2px 8px #000}.hero-countdown b{display:block;font:40px/1.2 var(--serif);font-variant-numeric:tabular-nums;min-width:64px}.hero-countdown span{display:block;font:10px/1.6 var(--sans);letter-spacing:2px;text-transform:uppercase;margin-top:6px}.wedding-details{text-align:center}.wedding-details h2{font:44px/1.3 var(--serif);margin-bottom:48px}.wedding-details dl{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;margin:0}.wedding-details dt{font:11px/1.6 var(--sans);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px}.wedding-details dd{margin:0;font-size:26px}.wedding-details .container>p{font-size:18px;margin-top:40px}.programme-time,.venue-schedule{font:14px/1.8 var(--sans);margin:12px 0;color:var(--ink)}@media(max-width:767px){.hero-title h1{font-size:clamp(46px,12vw,70px)}.hero-date{font-size:21px;margin-top:16px}.hero-countdown{gap:16px;margin-top:20px}.hero-countdown b{font-size:30px;min-width:50px}.hero-countdown span{font-size:9px;letter-spacing:1px}.wedding-details h2{font-size:36px}.wedding-details dl{grid-template-columns:1fr 1fr;gap:32px 16px}.wedding-details dd{font-size:23px}}
+/* Google Fonts headings; retain the approved Amsterdam banner lettering. */
+@font-face{font-family:Autography;src:url('/invitation/autography.otf') format('opentype');font-weight:400;font-style:normal;font-display:block}
+:root{--script:'Playfair Display',Georgia,serif}
+.invitation-site :is(h2,h3,h4,h5,h6){font-family:var(--script);font-weight:400;font-style:normal}
+.invitation-site .hero-title .hero-names{font-family:Amsterdam,cursive}
+.invitation-site h2{line-height:1.3}
+.invitation-site h3{font-size:38px;line-height:1.3}
+.invitation-site .wedding-details h2{font-size:58px}
+@media(max-width:767px){.invitation-site h3{font-size:34px}.invitation-site .wedding-details h2{font-size:44px}}
+.background-music{position:fixed;right:20px;bottom:20px;z-index:60}.background-music button{display:flex;align-items:center;gap:10px;min-height:44px;padding:12px 16px;border:1px solid var(--gold);border-radius:30px;background:var(--ivory);color:var(--ink);font:12px var(--sans);box-shadow:0 3px 18px #67434a20}.background-music p{max-width:200px;background:var(--ivory);padding:8px;font:12px var(--sans)}
+
+/* A quiet two-second welcome, followed by a soft 650ms reveal. */
+.logo-preloader{position:fixed;inset:0;width:100%;height:100dvh;z-index:1000;background:#fff;display:grid;place-items:center;animation:preloader-exit .65s cubic-bezier(.22,1,.36,1) 2s forwards}
+.logo-preloader img{width:clamp(130px,18vw,210px);height:auto;object-fit:contain;animation:preloader-logo-exit .65s ease 2s forwards}
+@keyframes preloader-exit{to{opacity:0;visibility:hidden;pointer-events:none}}
+@keyframes preloader-logo-exit{to{transform:translateY(-18px);opacity:0}}
+.invitation-site .hero-title{animation-delay:2.2s}
+.scroll-navigation nav{font-size:16px}.background-music button{font-size:16px}.eyebrow{font-size:14px}
+@media(max-width:767px){.scroll-navigation nav{font-size:14px;gap:16px}}
+@media(prefers-reduced-motion:reduce){.logo-preloader{animation:preloader-exit .01s linear 2s forwards!important}.logo-preloader img{animation:none!important}}
+
+@font-face{font-family:'Playfair Display';src:url('/invitation/playfair-display.ttf') format('truetype');font-style:normal;font-weight:400 900;font-display:block}
+.invitation-site h1.hero-names{font-family:Amsterdam,cursive;font-weight:400}
+.invitation-site h2,.invitation-site .wedding-details h2{font-size:clamp(30px,3.3vw,48px);line-height:1.3}
+.invitation-site h3,.invitation-site .venue .script,.invitation-site .attire .script{font-size:clamp(24px,2.4vw,32px);line-height:1.4}
+.invitation-site .hero-title{animation-delay:0s}
+.invitation-site .eyebrow,.hero-countdown span,.wedding-details dt,.form-note,.scroll-navigation nav{font-family:Cormorant,Georgia,serif}
+.hero-countdown span,.wedding-details dt{font-size:14px}.hero-title>.eyebrow{font-size:16px}
+.rsvp-panel form{margin-top:32px}.rsvp-panel .attendance{margin-top:24px}.rsvp-panel input:not([type=radio]){width:100%;padding:14px;font:20px Cormorant,Georgia,serif;background:var(--ivory);border:1px solid var(--line)}.rsvp-panel #guest-help{font-size:18px;margin-top:8px}.household-name{font-size:28px}.rsvp-error{color:#922747;font-weight:700}.hero-photo>img{filter:brightness(1.22) contrast(1.02)}
+.rsvp-welcome{max-width:660px;margin:24px auto 32px;font-size:22px;line-height:1.6;text-align:center}
+/* RSVP controls share one left edge at every screen size. */
+.rsvp-panel .attendance{display:flex;justify-content:flex-start;align-items:center;gap:12px 24px;min-width:0;width:100%;text-align:left}
+.rsvp-panel .attendance legend{padding:0;margin-bottom:8px}
+.rsvp-panel .attendance label{justify-content:flex-start;min-height:44px;cursor:pointer}
+.rsvp-panel .attendance input{margin:0;flex:0 0 20px}
+.rsvp-panel :is(input,textarea,button):focus-visible{outline:2px solid var(--ink);outline-offset:4px}
+@media(max-width:767px){
+ .rsvp-panel{padding:32px 24px}
+ .rsvp-panel h2{overflow-wrap:anywhere}
+ .rsvp-welcome{font-size:20px;line-height:1.55;margin:20px auto 28px}
+ .rsvp-panel .form-note{font-size:16px;line-height:1.5}
+ .rsvp-panel .message-field{margin-top:24px}
+ .rsvp-panel .rsvp-actions{gap:20px}
+ .rsvp-panel .button{width:100%;font-size:17px}
+ .background-music{right:12px;bottom:max(12px,env(safe-area-inset-bottom))}
+ footer{padding-bottom:100px}
+}
+@media(max-width:360px){.rsvp-section{padding-left:16px;padding-right:16px}.rsvp-panel{padding:28px 18px}.rsvp-panel .attendance{gap:12px 20px}}
+@media(max-width:380px){.swatches{gap:8px}.swatches i{width:40px;height:40px}.swatches span{font-size:13px;max-width:44px}.swatches>div{min-width:0}}
+@media(max-width:767px){.background-music button{width:44px;height:44px;min-height:44px;padding:0;justify-content:center}.background-music button span{display:none}.rsvp-panel .rsvp-actions .button{padding-right:48px}}
+/* Keep the supplied venue photographs framed around the places themselves. */
+.venue .venue-photo{height:auto;aspect-ratio:3/2;object-fit:cover}
+.venue .venue-photo.church-photo{object-position:50% 57%}
+.venue .venue-photo.farm-photo{object-position:50% 52%}
+@media(max-width:767px){.swatches{justify-content:center;gap:clamp(8px,2vw,16px);max-width:440px;margin-inline:auto}.swatches i{width:clamp(48px,14vw,64px);height:clamp(48px,14vw,64px)}.swatches span{max-width:70px;font-size:15px}.colours .section-title{margin-bottom:32px}.colours{padding-top:64px;padding-bottom:64px}}
+.venue-photo-crop{aspect-ratio:3/2;overflow:hidden}
+.venue-photo-crop .venue-photo{width:100%;height:100%}
+.venue-photo-crop .farm-photo{transform:scale(1.32);object-position:center 57%}
+
+/* Larger reading text throughout the invitation. */
+.invitation-site{font-size:23px}
+.invitation-site p,.invitation-site label,.invitation-site legend{font-size:23px}
+.invitation-site .eyebrow,.invitation-site .wedding-details dt{font-size:17px}
+.invitation-site .form-note{font-size:16px}
+.invitation-site .rsvp-welcome{font-size:25px}
+.invitation-site .message-field input,.invitation-site .message-field textarea{font-size:23px}
+.invitation-site .message-field>span{font-size:17px}
+.invitation-site .rsvp-panel .attendance{font-size:23px}
+.background-music{display:flex;flex-direction:column;align-items:flex-end;gap:8px}
+.music-volume{display:flex;align-items:center;gap:8px;background:var(--ivory);border:1px solid var(--gold);border-radius:20px;padding:8px 12px;font:16px var(--serif);box-shadow:0 3px 18px #67434a20}
+.music-volume input{width:90px;accent-color:var(--ink)}
+.music-volume output{min-width:36px;text-align:right}
+@media(max-width:767px){.invitation-site{font-size:21px}.invitation-site p,.invitation-site label,.invitation-site legend{font-size:21px}.invitation-site .rsvp-welcome{font-size:23px}.invitation-site .rsvp-panel .form-note{font-size:19px}.invitation-site .message-field input,.invitation-site .message-field textarea{font-size:21px}.invitation-site .background-music .music-volume{font-size:15px}.music-volume input{width:72px}}
+
+.faq-list>.faq-item{display:block;padding:0;min-height:0}
+.faq-trigger{display:flex;align-items:center;justify-content:space-between;gap:20px;width:100%;padding:20px 24px;border:0;background:transparent;color:var(--ink);font:23px/1.4 var(--serif);text-align:left}
+.faq-indicator{font:36px/1 var(--serif);width:32px;text-align:center;flex-shrink:0}
+.faq-answer{display:grid;grid-template-rows:0fr;opacity:0;transition:grid-template-rows .35s ease,opacity .25s ease}
+.faq-answer.is-open{grid-template-rows:1fr;opacity:1}
+.faq-answer>div{overflow:hidden;min-height:0}
+.faq-answer p{padding:0 24px 24px}
+.invitation-site .wedding-details>.container>p{font-size:23px}
+.invitation-site .hero-names + .eyebrow{margin-top:24px}
+.invitation-site .rsvp-panel .form-note{font-size:21px;line-height:1.55}
+.story-photo-frame{align-self:center}
+.story-slide{object-position:100% 50%}
+@media(max-width:767px){.story-slide{object-position:100% 50%}.faq-trigger{padding:18px;font-size:21px}.faq-answer p{padding:0 18px 20px}.invitation-site .wedding-details>.container>p{font-size:21px}.invitation-site .hero-names + .eyebrow{margin-top:20px}.invitation-site .rsvp-panel .form-note{font-size:20px}}
+@media(prefers-reduced-motion:reduce){.faq-answer{transition:none}}
+
+.invitation-site .eyebrow{font-size:14px;text-transform:capitalize;font-style:italic;letter-spacing:.06em}
+.invitation-site .swatches span,.invitation-site .swatches small{font-size:20px;line-height:1.4;max-width:none}
+.faq-indicator{display:flex;align-items:center;justify-content:center;font-style:normal;transform:none}
+.faq-indicator svg{width:30px;height:30px;flex-shrink:0}
+.line-icon svg{display:block;margin:0 auto}
+.invitation-site .form-note{font-weight:600}
+.invitation-site .attire-panel p{max-width:960px;line-height:1.65;margin:0 auto 16px;padding:0 12px;font-size:23px}
+.attire-guidance{max-width:1000px;margin:24px auto 0;padding-top:20px}
+.attire-bride-note{margin-top:16px}
+@media(max-width:767px){.invitation-site .swatches span{font-size:18px}.invitation-site .attire-panel p{font-size:21px;padding:0}.attire-guidance{margin-top:20px;padding-top:16px}}
+/* Final readability adjustments for navigation and RSVP action. */
+.invitation-site .scroll-navigation nav{font-size:20px}
+.invitation-site .scroll-navigation nav a{min-height:44px;display:inline-flex;align-items:center}
+.invitation-site .rsvp-actions .button{font-size:18px;min-height:56px;padding:14px 28px}
+@media(max-width:767px){.invitation-site .scroll-navigation nav{font-size:18px}.invitation-site .rsvp-actions .button{font-size:18px;min-height:56px}}
+
+.invitation-site .scroll-navigation nav a{justify-content:center}.nav-monogram img,.background-music button svg{display:block}.background-music button{align-items:center;justify-content:center}
+/* Readable section captions without competing with headings. */
+.invitation-site .eyebrow{font-size:17px;line-height:1.6}
+.invitation-site .eyebrow{font-size:22px}

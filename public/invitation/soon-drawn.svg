@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="240 440 630 520" role="img" aria-labelledby="title">
+ <title id="title">Soon</title>
+ <style>
+ path{fill:none;stroke:#fff;stroke-width:12;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;animation:write var(--duration) linear var(--delay) forwards}
+ @keyframes write{to{stroke-dashoffset:0}}
+ @media(prefers-reduced-motion:reduce){path{animation:none;stroke-dashoffset:0}}
+ </style>
+ <g>
+ <path pathLength="1" style="--duration:1.9s;--delay:.25s" d="M516 505 C533 407 351 521 300 581 C257 630 269 658 309 674 C371 699 461 725 455 777 C449 843 380 905 324 924 C255 950 334 853 405 793 C454 752 501 716 541 690"/>
+ <path pathLength="1" style="--duration:.8s;--delay:2.15s" d="M541 690 C516 710 535 763 559 741 C580 723 581 681 565 678 C548 674 543 704 563 718 C590 741 621 714 640 695"/>
+ <path pathLength="1" style="--duration:.8s;--delay:2.95s" d="M640 695 C613 715 630 761 655 741 C676 724 678 682 662 678 C645 674 638 704 658 718 C684 741 716 717 730 696"/>
+ <path pathLength="1" style="--duration:.85s;--delay:3.75s" d="M738 667 L713 768 C730 718 750 670 769 697 C779 713 784 757 807 738 C820 725 829 708 837 695"/>
+ </g>
+</svg>

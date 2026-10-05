@@ -1,0 +1,13 @@
+.git
+.next
+.next-app
+node_modules
+.env*
+.local
+.gallery-review
+outputs
+work
+design-handoff
+.agents
+.codex
+*.log

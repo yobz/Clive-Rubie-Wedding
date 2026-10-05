@@ -1,0 +1,10 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {validateResponse} from '../../lib/rsvp/validation.mjs';
+const input=(names='',attendance='attending')=>({attendance,additionalNames:names,message:' Best wishes! '});
+test('main guest uses one reserved seat',()=>{assert.deepEqual(validateResponse(input(),1).names,[]);assert.throws(()=>validateResponse(input('Xayah'),1),/reserves 1/);});
+test('four seats allow three named additions, fewer are welcome',()=>{assert.equal(validateResponse(input('Akali, Evelynn, Kai’Sa'),4).names.length,3);assert.equal(validateResponse(input('Akali'),4).names.length,1);assert.throws(()=>validateResponse(input('Akali, Evelynn, Kai’Sa, Lux'),4),/reserves 4/);});
+test('declining clears names and preserves optional message',()=>{const result=validateResponse(input('Xayah','declining'),2);assert.deepEqual(result.names,[]);assert.equal(result.message,'Best wishes!');});
+test('reject duplicate and malformed names',()=>{assert.throws(()=>validateResponse(input('Lux, lux'),4),/only once/);assert.throws(()=>validateResponse(input('<Lux>'),4));assert.throws(()=>validateResponse(null,2));});
+test('reject numeric names before checking capacity',()=>{assert.throws(()=>validateResponse(input('111,225,333,433'),4),/not numbers/);assert.throws(()=>validateResponse(input('Lux123'),4),/not numbers/);assert.throws(()=>validateResponse(input('１２３'),4),/not numbers/);});
+test('accept accented and punctuated names',()=>{assert.equal(validateResponse(input('José de la Cruz, Anne-Marie, O’Neil'),4).names.length,3);});

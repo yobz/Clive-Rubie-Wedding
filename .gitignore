@@ -15,6 +15,7 @@
 
 # next.js
 /.next/
+/.next-app/
 /.vinext/
 /out/
 
@@ -44,3 +45,6 @@ next-env.d.ts
 /outputs/
 /work/
 *.tsbuildinfo
+/.local/
+dev-site*.log
+/.gallery-review/
