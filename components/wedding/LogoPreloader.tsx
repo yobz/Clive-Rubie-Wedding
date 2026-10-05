@@ -3,6 +3,7 @@ import {useEffect,useRef,useState} from 'react';
 import './envelope.css';
 
 type SealAnimation={op:number;ip:number;fr:number;layers:{nm:string;op:number;ks:{o:{k:{t:number}[]};s:{k:number[]}}}[]};
+const openedSessionKey='wedding:invitation-opened';
 
 export function LogoPreloader(){
  const [phase,setPhase]=useState<'drawing'|'ready'|'opening'|'done'>('drawing');
@@ -13,6 +14,13 @@ export function LogoPreloader(){
  const timer=useRef<ReturnType<typeof setTimeout>|null>(null);
  const active=phase!=='done';
  useEffect(()=>{
+  try {
+   if(sessionStorage.getItem(openedSessionKey)==='yes'){
+    setPhase('done');
+    window.dispatchEvent(new Event('wedding:open-complete'));
+    return;
+   }
+  } catch { /* Opening also works when browser storage is disabled. */ }
   let cancelled=false;
   let animation:import('lottie-web').AnimationItem|undefined;
   const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -53,6 +61,7 @@ export function LogoPreloader(){
   window.dispatchEvent(new Event('wedding:open-start'));
   setPhase('opening');
   timer.current=setTimeout(()=>{
+   try { sessionStorage.setItem(openedSessionKey,'yes'); } catch { /* Storage is optional. */ }
    overlay.current?.parentElement?.classList.add('invitation-entered');
    setPhase('done');window.dispatchEvent(new Event('wedding:open-complete'));
    requestAnimationFrame(()=>{const main=document.getElementById('main');if(main){main.setAttribute('tabindex','-1');main.focus({preventScroll:true});}});

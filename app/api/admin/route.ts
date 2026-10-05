@@ -14,7 +14,7 @@ export async function POST(request:Request){
  if(!input || typeof input!=='object' || Array.isArray(input))return json({error:'Invalid request.'},400);
  if(input.action==='login'){
   const key=request.headers.get('x-forwarded-for')?.split(',')[0]||'local';const now=Date.now();const entry=attempts.get(key);if(entry&&entry.until>now&&entry.count>=10)return json({error:'Too many attempts. Try again in 15 minutes.'},429);
-  if(!process.env.ADMIN_PASSWORD||!process.env.ADMIN_SESSION_SECRET)return json({error:'Run the local database setup first.'},503);
+  if(!process.env.ADMIN_PASSWORD||!process.env.ADMIN_SESSION_SECRET)return json({error:'Admin access is not configured. Set ADMIN_PASSWORD and ADMIN_SESSION_SECRET in the hosting environment.'},503);
   if(typeof input.password!=='string'||!safeEqual(input.password,process.env.ADMIN_PASSWORD)){attempts.set(key,{count:entry&&entry.until>now?entry.count+1:1,until:entry&&entry.until>now?entry.until:now+900000});return json({error:'Incorrect password.'},401);}
   attempts.delete(key);return Response.json({ok:true},{headers:{'Set-Cookie':sessionCookie(makeSession(),request),'Cache-Control':'no-store'}});
  }
@@ -37,3 +37,4 @@ export async function POST(request:Request){
  return json({error:'Unknown action.'},400);
  }catch(error){if(error instanceof Error&&!(error as Error&{code?:string}).code)return json({error:error.message},400);return json({error:'The change could not be saved.'},503);}
 }
+

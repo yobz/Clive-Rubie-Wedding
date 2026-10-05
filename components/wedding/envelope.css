@@ -7,7 +7,7 @@
 .wedding-splash-artwork,.wedding-splash-logo>img{display:block;width:100%;height:100%}
 .wedding-splash-logo>img{position:absolute;inset:0;object-fit:contain}
 .wedding-splash-prompt{opacity:0;transform:translateY(12px);min-height:44px;text-align:center}
-.wedding-splash-prompt-button{border:0;background:none;color:#67434a;font-family:var(--serif,'Cormorant Garamond',serif);font-size:24px;letter-spacing:.06em;padding:12px 6px;cursor:pointer;line-height:1.4}
+.wedding-splash-prompt-button{border:0;background:none;color:#67434a;font-family:var(--serif,'Cormorant Garamond',serif);font-size:21px;letter-spacing:.06em;padding:12px 6px;cursor:pointer;line-height:1.4}
 .wedding-splash-prompt-button span{display:block}
 .is-ready .wedding-splash-prompt{animation:splashPromptEnter .45s ease-out forwards}
 .is-ready .wedding-splash-prompt-button span{animation:splashPromptNudge 2.8s 1.95s cubic-bezier(.45,0,.25,1) infinite}
@@ -20,6 +20,7 @@
 .invitation-site:has(>.wedding-envelope-gate)>:not(.wedding-envelope-gate){opacity:0}
 .invitation-site.invitation-entered>:not(.wedding-envelope-gate){animation:invitationEnter .45s ease-out both}
 @keyframes invitationEnter{from{opacity:0}to{opacity:1}}
-@media(max-width:600px){.wedding-envelope-scene{width:min(300px,76vw);gap:20px}.wedding-splash-prompt-button{font-size:23px;letter-spacing:.03em}}
+@media(max-width:600px){.wedding-envelope-scene{width:min(300px,76vw);gap:20px}.wedding-splash-prompt-button{font-size:20px;letter-spacing:.03em}}
 @media(prefers-reduced-motion:reduce){.is-ready .wedding-splash-prompt{animation:none;opacity:1;transform:none}.is-ready .wedding-splash-prompt-button span{animation:none}.wedding-envelope-gate.is-opening{animation-duration:.18s}.invitation-site.invitation-entered>:not(.wedding-envelope-gate){animation-duration:.18s}}
+
 

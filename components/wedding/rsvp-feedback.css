@@ -1,7 +1,8 @@
 .invitation-site .rsvp-panel .message-field input,.invitation-site .rsvp-panel .message-field textarea{border-radius:12px}
 .rsvp-feedback-dialog{width:min(480px,calc(100vw - 32px));border:1px solid #d9c9bd;border-radius:20px;padding:32px;background:#fffdf9;color:#67434a;box-shadow:0 24px 80px #0003;text-align:center;font-family:var(--body, 'Cormorant',Georgia,serif)}
 .rsvp-feedback-dialog::backdrop{background:rgba(34,25,28,.55);backdrop-filter:blur(4px)}
-.rsvp-feedback-dialog h3{font-family:var(--script,Georgia,serif);font-size:28px;line-height:1.25;margin:0 0 18px}
-.rsvp-feedback-dialog p{font-size:22px;line-height:1.5;margin:0 0 24px;color:#67434a}
-.rsvp-feedback-dialog .button{width:100%;min-height:52px;border-radius:12px;font-size:19px;background:#67434a;color:#fffdf9;border:0}
+.rsvp-feedback-dialog h3{font-family:var(--script,Georgia,serif);font-size:25px;line-height:1.25;margin:0 0 18px}
+.rsvp-feedback-dialog p{font-size:19px;line-height:1.5;margin:0 0 24px;color:#67434a}
+.rsvp-feedback-dialog .button{width:100%;min-height:52px;border-radius:12px;font-size:16px;background:#67434a;color:#fffdf9;border:0}
 @media(max-width:480px){.rsvp-feedback-dialog{padding:26px 22px}}
+
