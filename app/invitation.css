@@ -253,3 +253,9 @@ html{scroll-padding-top:84px}
 .invitation-site .tradition-grid article{border-left-color:var(--rose)}
 .invitation-site .venue-info .button{font-size:20px;gap:8px;min-height:56px}
 .invitation-site .venue-info .button span{display:inline-flex;align-items:center;justify-content:center;font-family:Arial,sans-serif;font-size:22px;line-height:1}
+
+/* Keep form fields free of an extra outer focus ring. */
+.invitation-site :is(input,textarea,select):focus,.invitation-site :is(input,textarea,select):focus-visible{outline:none;box-shadow:none}
+
+.invitation-site .footer-credit{font-size:16px;font-style:italic;color:var(--body);opacity:.8;text-align:left;margin:40px auto 0;max-width:1200px}
+@media(max-width:767px){.invitation-site .footer-credit{text-align:center}}
