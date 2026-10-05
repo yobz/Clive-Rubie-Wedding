@@ -249,3 +249,7 @@ html{scroll-padding-top:84px}
 @media(prefers-reduced-motion:reduce){.nav-menu-icon i,.nav-section-links{transition:none}}
 
 .invitation-site .timeline-mark,.invitation-site .line-icon{color:var(--rose)}
+
+.invitation-site .tradition-grid article{border-left-color:var(--rose)}
+.invitation-site .venue-info .button{font-size:20px;gap:8px;min-height:56px}
+.invitation-site .venue-info .button span{display:inline-flex;align-items:center;justify-content:center;font-family:Arial,sans-serif;font-size:22px;line-height:1}
