@@ -26,3 +26,5 @@
 @media(max-width:700px){.admin-headcounts{grid-template-columns:repeat(2,1fr)}.admin-toast-region{right:16px;bottom:16px}}
 
 .admin-import-progress{display:flex;align-items:center;gap:10px;padding:12px 0;color:#67434a}.admin-import-spinner{flex-shrink:0;animation:admin-import-spin 1s linear infinite}.admin-import-status.is-success{color:#496643}.admin-import-status.is-error{color:#923f4a}.admin-import-elapsed,.admin-import-filename{font-size:17px;overflow-wrap:anywhere}@keyframes admin-import-spin{to{transform:rotate(360deg)}}@media(prefers-reduced-motion:reduce){.admin-import-spinner{animation:none}}
+
+.admin-select{display:flex!important;align-items:center;gap:10px}.admin-select input{width:22px;height:22px}.admin-bulk-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:20px}.admin-page .admin-delete{background:#923f4a;border-color:#923f4a}

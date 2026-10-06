@@ -37,6 +37,12 @@ export async function POST(request:Request){
   if(typeof input.name!=='string'||input.name.trim().length<2||input.name.length>100||!Number.isInteger(input.seats)||input.seats<1||input.seats>30)return json({error:'Enter a name (2-100 characters) and 1-30 seats.'},400);
   const token=newToken();await db().query('INSERT INTO invitations(id,main_guest_name,reserved_seats,token_hash,token_ciphertext) VALUES($1,$2,$3,$4,$5)',[randomUUID(),input.name.trim(),input.seats,hashToken(token),encrypt(token)]);return json({ok:true});
  }
+ if(input.action==='delete'){
+  const ids=input.ids;
+  if(!Array.isArray(ids)||ids.length<1||ids.length>500||ids.some(id=>typeof id!=='string'||!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id))||new Set(ids).size!==ids.length)return json({error:'Select 1-500 valid households to delete.'},400);
+  const result=await db().query('DELETE FROM invitations WHERE id = ANY($1::uuid[])',[ids]);
+  return json({ok:true,deleted:result.rowCount});
+ }
  if(typeof input.id!=='string'||!/^[0-9a-f-]{36}$/i.test(input.id))return json({error:'Invalid invitation.'},400);
  if(input.action==='rotate'){const token=newToken();await db().query("UPDATE invitations SET token_hash=$1,token_ciphertext=$2,revoked=false,attendance=NULL,additional_names='{}',message='',submitted_at=NULL,sent=false WHERE id=$3",[hashToken(token),encrypt(token),input.id]);return json({ok:true});}
  if(input.action==='revoke'){await db().query('UPDATE invitations SET revoked=true WHERE id=$1',[input.id]);return json({ok:true});}

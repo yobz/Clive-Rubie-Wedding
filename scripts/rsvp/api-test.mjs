@@ -40,5 +40,15 @@ try{
  assert.equal((await request('/api/admin',{action:'import',csv:'main_guest_name,reserved_seats\n'+batchName+' Three,1\n'+batchName+' One,2'},true)).r.status,400);
  assert.equal((await pool.query('SELECT count(*)::int AS total FROM invitations WHERE main_guest_name=$1',[batchName+' Three'])).rows[0].total,0);
  const forbidden=await fetch(origin+'/api/admin',{method:'POST',headers:{origin,cookie,'Content-Type':'application/json'},body:JSON.stringify({action:'revoke',id:row.id})});assert.equal(forbidden.status,403);
- console.log('PASS: authentication, household lookup, seat limits, concurrent duplicate prevention, message persistence, admin corrections, revocation, token rotation, CSRF, bulk import, unique links and atomic duplicate rejection.');
+ for(const invalid of [[],['invalid'],[row.id,row.id]])assert.equal((await request('/api/admin',{action:'delete',ids:invalid},true)).r.status,400);
+ assert.equal((await request('/api/admin',{action:'delete',ids:[row.id]})).r.status,401);
+ const protectedDelete=await fetch(origin+'/api/admin',{method:'POST',headers:{origin,cookie,'Content-Type':'application/json'},body:JSON.stringify({action:'delete',ids:[row.id]})});assert.equal(protectedDelete.status,403);
+ assert.equal((await request('/api/admin',{action:'delete',ids:[row.id]},true)).data.deleted,1);
+ assert.equal((await request('/api/invitations/'+reset.token)).r.status,404);
+ assert.equal((await request('/api/rsvp',{token:reset.token,attendance:'attending',additionalNames:'',message:''})).r.status,404);
+ assert.ok(!(await request('/api/guest-messages')).data.messages.some(r=>r.name===name));
+ assert.equal((await request('/api/admin',{action:'delete',ids:imported.map(r=>r.id)},true)).data.deleted,2);
+ const remaining=(await request('/api/admin',undefined,true)).data.invitations;assert.ok(!remaining.some(r=>ids.includes(r.id)));
+ for(const r of imported)assert.equal((await request('/api/invitations/'+r.token)).r.status,404);
+ console.log('PASS: authentication, household lookup, seat limits, concurrent duplicate prevention, message persistence, admin corrections, revocation, token rotation, CSRF, bulk import, unique links, atomic duplicate rejection, single and bulk deletion.');
 }finally{if(ids.length)await pool.query('DELETE FROM invitations WHERE id = ANY($1::uuid[])',[ids]);await pool.end();}
