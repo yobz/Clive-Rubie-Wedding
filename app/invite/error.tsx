@@ -1,0 +1,2 @@
+'use client';
+export default function InvitationError({reset}:{reset:()=>void}){return <main style={{minHeight:'100dvh',display:'grid',placeItems:'center',padding:24}}><div style={{maxWidth:480,textAlign:'center'}}><h1 style={{fontFamily:'var(--serif)',fontSize:36}}>Please try again shortly</h1><p style={{margin:'20px 0'}}>We could not open your invitation right now.</p><button className="button" style={{margin:'auto'}} onClick={reset}>Try again</button></div></main>;}

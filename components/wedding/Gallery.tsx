@@ -19,8 +19,8 @@ const moments = [
     "tone": "garden"
   },
   {
-    "src": "/photos/gallery/portrait-4199.webp",
-    "alt": "Clive seated with his cane beside a softly lit window",
+    "src": "/photos/gallery/portrait-4226.webp",
+    "alt": "Clive adjusting his embroidered Barong cuff in a heritage room",
     "width": 1333,
     "height": 2000,
     "tone": "finished",
@@ -60,10 +60,10 @@ const moments = [
   },
   {
     "id": 8,
-    "src": "/photos/gallery/moment-4729.webp",
-    "alt": "Sharing a quiet moment with foreheads touching",
-    "width": 1800,
-    "height": 1200,
+    "src": "/photos/gallery/moment-4994.webp",
+    "alt": "Clive and Rubie embracing beside a carved wooden staircase",
+    "width": 2000,
+    "height": 1333,
     "tone": "garden"
   },
   {
@@ -84,16 +84,16 @@ const moments = [
   },
   {
     "id": 11,
-    "src": "/photos/gallery/heritage-4061.webp",
-    "alt": "Rubie peeking over a floral fan",
+    "src": "/photos/gallery/moment-4395-updated.webp",
+    "alt": "Clive and Rubie laughing together in matching green outfits outdoors",
     "width": 1333,
     "height": 2000,
     "tone": "heritage"
   },
   {
     "id": 12,
-    "src": "/photos/gallery/moment-4973.webp",
-    "alt": "Sharing a laugh together in a heritage sitting room",
+    "src": "/photos/gallery/moment-5089.webp",
+    "alt": "Clive and Rubie dancing beside a sunlit heritage window",
     "width": 1333,
     "height": 2000,
     "tone": "finished"
@@ -133,8 +133,7 @@ const galleryMoments = orderedMoments.map((moment, index) => ({ ...moment, id: i
 
 function Photograph({ index }: { index: number }) {
   const moment = galleryMoments[index];
-  return moment.src ? <img className={`gallery-photo gallery-photo--${moment.tone}`} src={moment.src} alt={moment.alt} width={moment.width} height={moment.height} loading="lazy" draggable={false} /> :
-    <span className="gallery-placeholder"><span aria-hidden="true">◇</span><span>Moment {String(moment.id).padStart(2, '0')}</span><small>Photograph coming soon</small></span>;
+  return <img className={`gallery-photo gallery-photo--${moment.tone}`} src={moment.src} alt={moment.alt} width={moment.width} height={moment.height} loading="lazy" draggable={false} />;
 }
 
 export function Gallery() {

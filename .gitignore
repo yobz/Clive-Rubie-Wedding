@@ -48,3 +48,6 @@ next-env.d.ts
 /.local/
 dev-site*.log
 /.gallery-review/
+
+# Private guest lists for manual dashboard import
+/exports/

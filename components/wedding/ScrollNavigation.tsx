@@ -1,7 +1,7 @@
 'use client';
 import {useEffect,useState} from 'react';
 
-const sections = [['story','Our story'],['wedding-details','The day'],['places','Venues'],['programme','Programme'],['colours','Colours'],['attire','Attire'],['gallery','Gallery'],['faq','FAQs'],['rsvp','RSVP']];
+const sections = [['wedding-details','The Day'],['story','Our Story'],['gallery','Gallery'],['programme','Programme'],['places','Venues'],['colours','Colours'],['attire','Attire'],['faq','FAQs'],['rsvp','RSVP']];
 export function ScrollNavigation(){
  const [visible,setVisible]=useState(false);
  const [open,setOpen]=useState(false);

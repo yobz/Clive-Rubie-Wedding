@@ -6,3 +6,12 @@
 .rsvp-feedback-dialog .button{width:100%;min-height:52px;border-radius:12px;font-size:16px;background:#67434a;color:#fffdf9;border:0}
 @media(max-width:480px){.rsvp-feedback-dialog{padding:26px 22px}}
 
+
+.rsvp-form{opacity:1;transition:opacity .3s ease}
+.rsvp-form.is-submitting{opacity:.55}
+.rsvp-confirmation,.rsvp-additional-guests{animation:rsvp-content-enter .65s cubic-bezier(.22,1,.36,1) both}
+.rsvp-confirmation .form-note{margin-top:24px}
+.invitation-site .rsvp-actions button:disabled{opacity:.65;cursor:wait}
+@keyframes rsvp-content-enter{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){.rsvp-form{transition:none}.rsvp-confirmation,.rsvp-additional-guests{animation:none}}
+.invitation-site .rsvp-panel .form-note{text-align:center}

@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import pg from 'pg';
 process.loadEnvFile('.env.local');
-const origin='http://localhost:5173';
+const origin=process.env.RSVP_TEST_ORIGIN||'http://localhost:5173';
 let cookie='',csrf='';
 async function request(path,data,authenticated=false){const r=await fetch(origin+path,{method:data?'POST':'GET',headers:{origin,'Content-Type':'application/json',...(authenticated?{cookie,'x-csrf-token':csrf}:{})},...(data?{body:JSON.stringify(data)}:{})});return {r,data:await r.json()};}
 const pool=new pg.Pool({connectionString:process.env.DATABASE_URL});
@@ -13,13 +13,32 @@ try{
  const name='QA '+Date.now();assert.equal((await request('/api/admin',{action:'create',name,seats:3},true)).r.status,200);
  dashboard=await request('/api/admin',undefined,true);const row=dashboard.data.invitations.find(r=>r.main_guest_name===name);ids.push(row.id);
  assert.equal((await request('/api/invitations/'+row.token)).data.reserved_seats,3);
+ for(const additionalNames of ['Lux, , Ahri','Li','!!!','Lux123','Lux, lux','Guest'])assert.equal((await request('/api/rsvp',{token:row.token,attendance:'attending',additionalNames,message:''})).r.status,400);
+ assert.equal((await request('/api/invitations/'+row.token)).data.submitted_at,null);
+ assert.equal((await request('/api/admin',{action:'sent',id:row.id,sent:true},true)).r.status,200);
+ assert.equal((await request('/api/admin',undefined,true)).data.invitations.find(r=>r.id===row.id).sent,true);
  assert.equal((await request('/api/rsvp',{token:row.token,attendance:'attending',additionalNames:'Lux, Ahri, Akali',message:''})).r.status,400);
  const response={token:row.token,attendance:'attending',additionalNames:'Lux, Ahri',message:'A message worth keeping.'};
  const concurrent=await Promise.all([request('/api/rsvp',response),request('/api/rsvp',response)]);assert.deepEqual(concurrent.map(x=>x.r.status).sort(),[201,409]);
  const saved=(await request('/api/invitations/'+row.token)).data;assert.deepEqual(saved.additional_names,['Lux','Ahri']);assert.equal(saved.message,response.message);assert.ok(saved.submitted_at);
+ assert.equal((await request('/api/admin',undefined,true)).data.invitations.find(r=>r.id===row.id).attendance,'attending');
+ assert.ok((await request('/api/guest-messages')).data.messages.some(r=>r.name===name&&r.message===response.message));
  assert.equal((await request('/api/admin',{action:'update',id:row.id,name,seats:2,attendance:'attending',additionalNames:'Lux',message:response.message},true)).r.status,200);
  assert.equal((await request('/api/admin',{action:'revoke',id:row.id},true)).r.status,200);assert.equal((await request('/api/invitations/'+row.token)).r.status,404);
+ assert.equal((await request('/api/rsvp',response)).r.status,404);
+ assert.ok(!(await request('/api/guest-messages')).data.messages.some(r=>r.name===name));
  assert.equal((await request('/api/admin',{action:'rotate',id:row.id},true)).r.status,200);assert.equal((await request('/api/invitations/'+row.token)).r.status,404);
+ dashboard=await request('/api/admin',undefined,true);const reset=dashboard.data.invitations.find(r=>r.id===row.id);assert.equal(reset.attendance,null);assert.deepEqual(reset.additional_names,[]);assert.equal(reset.message,'');assert.equal(reset.submitted_at,null);assert.equal(reset.sent,false);assert.equal(reset.revoked,false);assert.notEqual(reset.token,row.token);assert.equal((await request('/api/invitations/'+reset.token)).r.status,200);
+ assert.equal((await request('/api/rsvp',{token:reset.token,attendance:'declining',additionalNames:'Lux, Ahri',message:' Sorry, we cannot attend. '})).r.status,201);
+ const declined=(await request('/api/invitations/'+reset.token)).data;assert.equal(declined.attendance,'declining');assert.deepEqual(declined.additional_names,[]);assert.equal(declined.message,'Sorry, we cannot attend.');
+ assert.equal((await request('/api/admin',{action:'update',id:row.id,name,seats:1,attendance:'pending',additionalNames:'',message:''},true)).r.status,200);
+ assert.equal((await request('/api/rsvp',{token:reset.token,attendance:'attending',additionalNames:'   ',message:''})).r.status,201);
+ assert.deepEqual((await request('/api/invitations/'+reset.token)).data.additional_names,[]);
+ const batchName='QA Bulk '+Date.now();const batchCsv='main_guest_name,reserved_seats\n'+batchName+' One,2\n'+batchName+' Two,3';
+ assert.equal((await request('/api/admin',{action:'import',csv:batchCsv},true)).r.status,200);
+ dashboard=await request('/api/admin',undefined,true);const imported=dashboard.data.invitations.filter(r=>r.main_guest_name.startsWith(batchName));ids.push(...imported.map(r=>r.id));assert.equal(imported.length,2);assert.notEqual(imported[0].token,imported[1].token);for(const r of imported)assert.equal((await request('/api/invitations/'+r.token)).r.status,200);
+ assert.equal((await request('/api/admin',{action:'import',csv:'main_guest_name,reserved_seats\n'+batchName+' Three,1\n'+batchName+' One,2'},true)).r.status,400);
+ assert.equal((await pool.query('SELECT count(*)::int AS total FROM invitations WHERE main_guest_name=$1',[batchName+' Three'])).rows[0].total,0);
  const forbidden=await fetch(origin+'/api/admin',{method:'POST',headers:{origin,cookie,'Content-Type':'application/json'},body:JSON.stringify({action:'revoke',id:row.id})});assert.equal(forbidden.status,403);
- console.log('PASS: authentication, household lookup, seat limits, concurrent duplicate prevention, message persistence, admin corrections, revocation, token rotation, CSRF.');
+ console.log('PASS: authentication, household lookup, seat limits, concurrent duplicate prevention, message persistence, admin corrections, revocation, token rotation, CSRF, bulk import, unique links and atomic duplicate rejection.');
 }finally{if(ids.length)await pool.query('DELETE FROM invitations WHERE id = ANY($1::uuid[])',[ids]);await pool.end();}

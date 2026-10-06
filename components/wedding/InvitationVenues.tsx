@@ -1,3 +1,4 @@
+import {MoveUpRight} from 'lucide-react';
 const venues = [
   {
     label: "The ceremony",
@@ -50,7 +51,7 @@ export function InvitationVenues() {
                 referrerPolicy="strict-origin-when-cross-origin"
               />
               <a className="button" href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(venue.coordinates)}`} target="_blank" rel="noopener noreferrer" aria-label={`Get directions to ${venue.name} (opens in a new tab)`}>
-                Get directions <span aria-hidden="true">↗</span>
+                Get directions <MoveUpRight size={22} strokeWidth={1.8} aria-hidden="true" />
               </a>
             </div>
           </article>

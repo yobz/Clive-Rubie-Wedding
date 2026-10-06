@@ -8,3 +8,21 @@
 .admin-result-count{margin:16px 0 0}
 .admin-pagination{display:flex;align-items:center;justify-content:center;gap:16px;margin:24px 0}
 @media(max-width:700px){.admin-list-controls{grid-template-columns:1fr;gap:12px}.admin-pagination{gap:10px}}
+
+.admin-headcounts{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:24px 0 12px}
+.admin-headcounts>div{padding:20px;background:#f3e7e7;border-radius:12px;text-align:center}
+.admin-headcounts strong{display:block;font:36px/1.3 'Playfair Display',Georgia,serif;color:#67434a}
+.admin-headcounts span{display:block}
+.admin-count-help{font-size:18px}
+@media(max-width:700px){.admin-headcounts{grid-template-columns:repeat(2,1fr)}}
+
+.admin-import{margin:24px 0;padding:24px;border:1px solid var(--line,#d9c8c0);border-radius:12px}.admin-import p{margin:12px 0}.admin-import button{margin-right:12px}.admin-import input{max-width:100%}
+
+.admin-headcounts{grid-template-columns:repeat(3,1fr)}
+.admin-toast-region{position:fixed;right:24px;bottom:24px;z-index:200;max-width:min(420px,calc(100vw - 32px))}
+.admin-toast{display:flex;align-items:center;gap:16px;padding:14px 18px;border:1px solid #b89a62;border-radius:12px;background:#fff9f3;color:#67434a;box-shadow:0 8px 32px #67434a26}
+.admin-toast.is-error{border-color:#b77d87}
+.admin-page .admin-toast button{flex-shrink:0;margin:0;padding:0;min-width:36px;min-height:36px;background:transparent;color:#67434a;border:0;font-size:26px}
+@media(max-width:700px){.admin-headcounts{grid-template-columns:repeat(2,1fr)}.admin-toast-region{right:16px;bottom:16px}}
+
+.admin-import-progress{display:flex;align-items:center;gap:10px;padding:12px 0;color:#67434a}.admin-import-spinner{flex-shrink:0;animation:admin-import-spin 1s linear infinite}.admin-import-status.is-success{color:#496643}.admin-import-status.is-error{color:#923f4a}.admin-import-elapsed,.admin-import-filename{font-size:17px;overflow-wrap:anywhere}@keyframes admin-import-spin{to{transform:rotate(360deg)}}@media(prefers-reduced-motion:reduce){.admin-import-spinner{animation:none}}

@@ -3,9 +3,8 @@ import {useEffect,useRef,useState} from 'react';
 import './envelope.css';
 
 type SealAnimation={op:number;ip:number;fr:number;layers:{nm:string;op:number;ks:{o:{k:{t:number}[]};s:{k:number[]}}}[]};
-const openedSessionKey='wedding:invitation-opened';
 
-export function LogoPreloader(){
+export function LogoPreloader({notFound=false}:{notFound?:boolean}={}){
  const [phase,setPhase]=useState<'drawing'|'ready'|'opening'|'done'>('drawing');
  const [fallback,setFallback]=useState(false);
  const overlay=useRef<HTMLDivElement>(null);
@@ -14,13 +13,6 @@ export function LogoPreloader(){
  const timer=useRef<ReturnType<typeof setTimeout>|null>(null);
  const active=phase!=='done';
  useEffect(()=>{
-  try {
-   if(sessionStorage.getItem(openedSessionKey)==='yes'){
-    setPhase('done');
-    window.dispatchEvent(new Event('wedding:open-complete'));
-    return;
-   }
-  } catch { /* Opening also works when browser storage is disabled. */ }
   let cancelled=false;
   let animation:import('lottie-web').AnimationItem|undefined;
   const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -47,7 +39,7 @@ export function LogoPreloader(){
  useEffect(()=>{
   if(!active)return;
   const previous=document.body.style.overflow;
-  const siblings=Array.from(overlay.current?.parentElement?.children??[]).filter(e=>e!==overlay.current) as HTMLElement[];
+  const siblings=Array.from(overlay.current?.parentElement?.children??[]).filter(e=>e!==overlay.current&&e.tagName!=='NEXTJS-PORTAL') as HTMLElement[];
   const states=siblings.map(e=>e.inert);
   siblings.forEach(e=>{e.inert=true;});document.body.style.overflow='hidden';
   overlay.current?.focus({preventScroll:true});
@@ -56,26 +48,27 @@ export function LogoPreloader(){
  useEffect(()=>()=>{if(timer.current)clearTimeout(timer.current);},[]);
  function open(){
   if(phase!=='ready'||opening.current)return;
+  if(notFound){window.location.assign('/');return;}
   opening.current=true;
   // Keep the existing synchronous music unlock; audible music starts after the fade.
   window.dispatchEvent(new Event('wedding:open-start'));
   setPhase('opening');
   timer.current=setTimeout(()=>{
-   try { sessionStorage.setItem(openedSessionKey,'yes'); } catch { /* Storage is optional. */ }
    overlay.current?.parentElement?.classList.add('invitation-entered');
    setPhase('done');window.dispatchEvent(new Event('wedding:open-complete'));
    requestAnimationFrame(()=>{const main=document.getElementById('main');if(main){main.setAttribute('tabindex','-1');main.focus({preventScroll:true});}});
   },window.matchMedia('(prefers-reduced-motion: reduce)').matches?180:550);
  }
  if(phase==='done')return null;
- return <div ref={overlay} tabIndex={-1} className={`wedding-envelope-gate is-${phase}`} role="dialog" aria-modal="true" aria-label="Open Clive and Rubie's wedding invitation">
+ return <div ref={overlay} tabIndex={-1} className={`wedding-envelope-gate is-${phase}${notFound?' is-not-found':''}`} role="dialog" aria-modal="true" aria-label={notFound?'Page not found':"Open Clive and Rubie's wedding invitation"}>
   <div className="wedding-envelope-scene">
-   <button type="button" className="wedding-splash-logo" onClick={open} disabled={phase!=='ready'} aria-label="Open invitation">
+   <button type="button" className="wedding-splash-logo" onClick={open} disabled={phase!=='ready'} aria-label={notFound?'Return to our invitation':'Open invitation'}>
     <span ref={artwork} className="wedding-splash-artwork" aria-hidden="true"/>
     {fallback&&<img src="/seal-preview/seal-static.png" alt=""/>}
    </button>
    <div className="wedding-splash-prompt" aria-hidden={phase==='drawing'}>
-    <button type="button" className="wedding-splash-prompt-button" onClick={open} disabled={phase!=='ready'} tabIndex={-1}><span>Tap to open our invitation</span></button>
+    {notFound&&<><p className="not-found-code">404</p><h1 className="not-found-title">A little lost?</h1><p className="not-found-description">This page could not be found. Our celebration is just a tap away.</p></>}
+    <button type="button" className="wedding-splash-prompt-button" onClick={open} disabled={phase!=='ready'} tabIndex={notFound?0:-1}><span>{notFound?'Return to our invitation':'Tap to open our invitation'}</span></button>
    </div>
   </div>
  </div>;

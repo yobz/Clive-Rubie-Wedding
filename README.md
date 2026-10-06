@@ -1,4 +1,12 @@
-# vinext-starter
+# Clive & Rubie Wedding Invitation
+
+The active application uses Next.js and PostgreSQL. Run `npm run dev` for the invitation and admin dashboard on port 5173, `npm test` for validation and utility tests, and `npm run build` for production. See [LOCAL-RSVP.md](LOCAL-RSVP.md) for local database setup and [VERCEL-DEPLOYMENT.md](VERCEL-DEPLOYMENT.md) for deployment.
+
+The source lives in `app/`, `components/wedding/`, and `lib/rsvp/`. The October 2026 cleanup removed unreachable prototype components, the unused generated UI library, their exclusive dependencies, three old stylesheet designs, and an obsolete RSVP test script. Original photos, artwork, guest exports, and local state are retained.
+
+The material below describes the original Sites/Cloudflare starter. Its optional deployment scaffolding remains available through the explicit `dev:vinext`, `build:vinext`, and `start:vinext` commands; it is not the active Next.js deployment.
+
+## Original starter reference
 
 A clean full-stack starter running on [vinext](https://github.com/cloudflare/vinext), with optional Cloudflare D1 and Drizzle support.
 

@@ -7,6 +7,11 @@ export const weddingPlaylist = [
  'sayo', 'saksi-ang-langit', 'enchanted', 'closer',
 ].map(song => `/invitation/music/${song}.mp3`);
 export function BackgroundMusic(){
+ const [mounted,setMounted]=useState(false);
+ useEffect(()=>{setMounted(true);},[]);
+ return mounted?<MusicPlayer/>:null;
+}
+function MusicPlayer(){
  const [volume,setVolume]=useState(25);
  const volumeLevel=useRef(.25);
  const track=useRef(0);
