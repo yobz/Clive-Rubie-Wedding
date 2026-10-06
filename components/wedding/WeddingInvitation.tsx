@@ -29,5 +29,5 @@ export function WeddingInvitation(){const [responseCompleted,setResponseComplete
 <div className="invitation-closing"><span className="sprig closing-floral closing-floral-left" aria-hidden="true"/><span className="sprig closing-floral closing-floral-right" aria-hidden="true"/><section id="gifts" className="section gifts"><div className="container"><h2>Your presence is our present.</h2><p>Celebrating with you means the most.</p></div></section>
 <section id="rsvp" className="rsvp-section"><HouseholdRSVP onCompletionChange={setResponseCompleted}/></section>
 {responseCompleted&&<GuestMessages/>}</div>
-</main><footer><div className="footer-logo"><span></span><img src="/invitation/monogram-new.png" alt="Clive and Rubie monogram" /><span></span></div><p className="hashtag">#CliveFoundHisRubie</p><p className="eyebrow">Same places. More love to come.</p><p className="footer-credit">Made with love by Clive 💜</p></footer></div>}
+</main><footer><div className="footer-logo"><span></span><img src="/invitation/footer-seal.svg" alt="Clive and Rubie monogram" /><span></span></div><p className="hashtag">#CliveFoundHisRubie</p><p className="eyebrow">Same places. More love to come.</p><p className="footer-credit">Made with love by Clive 💜</p></footer></div>}
 

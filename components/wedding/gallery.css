@@ -21,3 +21,11 @@
 
 
 .gallery-tile:focus-visible .gallery-image{box-shadow:0 5px 20px #67434a08}
+
+/* Match the viewer frame to the photo: no pale letterboxing on narrow screens. */
+.gallery-expanded{background:transparent;border:0}
+.gallery-expanded img{display:block;object-fit:cover}
+@media(max-width:700px){.gallery-expanded{max-height:68dvh}.gallery-viewer{padding-top:72px}}
+.gallery-photo--shadow-lift{filter:brightness(1.18) contrast(.96)}
+
+.gallery-photo--shadow-lift{filter:url(#gallery-shadow-lift)}

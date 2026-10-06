@@ -124,10 +124,15 @@ const moments = [
   }
 ,
   {id:16,src:'/photos/gallery/moment-4977.webp',alt:'Clive and Rubie laughing together with a playful embrace',width:1333,height:2000,tone:'finished'}
+,{"id":17,"src":"/photos/gallery/moment-4108.webp","alt":"Rubie smiling up at Clive in their embroidered heritage outfits","width":1333,"height":2000,"tone":"shadow-lift"},
+{"id":18,"src":"/photos/gallery/moment-4353.webp","alt":"Clive and Rubie sharing a quiet conversation over coffee","width":2000,"height":1333,"tone":"heritage"},
+{"id":19,"src":"/photos/gallery/moment-4980.webp","alt":"Clive and Rubie making playful faces beneath antique portraits","width":2000,"height":1333,"tone":"finished"},
+{"id":20,"src":"/photos/gallery/moment-5246.webp","alt":"Clive and Rubie laughing and holding hands outside a heritage house","width":2000,"height":1333,"tone":"finished"},
+{"id":21,"src":"/photos/gallery/moment-5234.webp","alt":"Clive and Rubie tossing their shoes into the blue sky","width":1333,"height":2000,"tone":"finished"}
 ];
 
 // Mix tall and wide photographs throughout the masonry columns.
-const galleryOrder = [1, 7, 4, 6, 3, 5, 9, 15, 8, 12, 14, 16, 11, 13, 10];
+const galleryOrder = [1, 7, 19, 4, 17, 6, 3, 5, 21, 9, 15, 18, 8, 12, 20, 14, 16, 11, 13, 10];
 const orderedMoments = galleryOrder.map(id => moments.find(moment => moment.id === id)!);
 const galleryMoments = orderedMoments.map((moment, index) => ({ ...moment, id: index + 1, ratio: moment.width / moment.height }));
 
@@ -173,7 +178,7 @@ export function Gallery() {
   const move = (step: number) => setActive(value => value === null ? null : (value + step + galleryMoments.length) % galleryMoments.length);
 
   return <section id="gallery" className="section wedding-gallery" aria-labelledby="gallery-heading">
-    <LayoutGroup id={galleryId}>
+    <svg width="0" height="0" aria-hidden="true" style={{position:'absolute'}}><defs><filter id="gallery-shadow-lift" colorInterpolationFilters="sRGB"><feComponentTransfer><feFuncR type="gamma" amplitude="1" exponent="0.76" offset="0"/><feFuncG type="gamma" amplitude="1" exponent="0.76" offset="0"/><feFuncB type="gamma" amplitude="1" exponent="0.76" offset="0"/></feComponentTransfer></filter></defs></svg><LayoutGroup id={galleryId}>
       <div className="container">
         <header className="section-title"><p className="eyebrow">Little moments, a lifetime of love</p><h2 id="gallery-heading">Our gallery</h2><p className="subtitle">A few moments from our story.</p></header>
         <div className="wedding-gallery-grid">{columns.map((column, columnIndex) => <div className="gallery-column" key={columnIndex}>{column.map(({ moment, index }) =>
