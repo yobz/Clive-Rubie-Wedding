@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  distDir: '.next-app',
+  distDir: process.env.NEXT_DIST_DIR || '.next-app',
 };
 
 export default nextConfig;

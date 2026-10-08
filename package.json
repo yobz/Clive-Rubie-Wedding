@@ -17,7 +17,8 @@
     "db:setup": "node scripts/rsvp/setup.mjs",
     "test:rsvp": "node --test scripts/rsvp/*.test.mjs scripts/headcounts.test.mjs",
     "start:vinext": "node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js dev --config dist/server/wrangler.json --local --persist-to .wrangler/state --ip 127.0.0.1 --inspector-port 0",
-    "test": "node --test scripts/rsvp/*.test.mjs scripts/headcounts.test.mjs scripts/music-volume.test.mjs"
+    "test": "node --test scripts/rsvp/*.test.mjs scripts/headcounts.test.mjs scripts/music-volume.test.mjs",
+    "predev": "node scripts/rsvp/ensure-local-db.mjs"
   },
   "dependencies": {
     "drizzle-orm": "0.45.2",

@@ -1,6 +1,6 @@
 # Local wedding invitation
 
-Run `npm run dev`, then open http://localhost:5173. The public site needs no login.
+Run `npm run dev`, then open http://localhost:5173. On Windows this also starts the configured portable local database when needed. The public site needs no login.
 
 ## Database and dashboard
 
