@@ -30,7 +30,7 @@ try{
  assert.equal((await request('/api/admin',{action:'rotate',id:row.id},true)).r.status,200);assert.equal((await request('/api/invitations/'+row.token)).r.status,404);
  dashboard=await request('/api/admin',undefined,true);const reset=dashboard.data.invitations.find(r=>r.id===row.id);assert.equal(reset.attendance,null);assert.deepEqual(reset.additional_names,[]);assert.equal(reset.message,'');assert.equal(reset.submitted_at,null);assert.equal(reset.sent,false);assert.equal(reset.revoked,false);assert.notEqual(reset.token,row.token);assert.equal((await request('/api/invitations/'+reset.token)).r.status,200);
  assert.equal((await request('/api/rsvp',{token:reset.token,attendance:'declining',additionalNames:'Lux, Ahri',message:' Sorry, we cannot attend. '})).r.status,201);
- const declined=(await request('/api/invitations/'+reset.token)).data;assert.equal(declined.attendance,'declining');assert.deepEqual(declined.additional_names,[]);assert.equal(declined.message,'');assert.ok(!(await request('/api/guest-messages')).data.messages.some(r=>r.name===name));
+ const declined=(await request('/api/invitations/'+reset.token)).data;assert.equal(declined.attendance,'declining');assert.deepEqual(declined.additional_names,[]);assert.equal(declined.message,'Sorry, we cannot attend.');assert.ok(!(await request('/api/guest-messages')).data.messages.some(r=>r.name===name));
  assert.equal((await request('/api/admin',{action:'update',id:row.id,name,seats:1,attendance:'pending',additionalNames:'',message:''},true)).r.status,200);
  assert.equal((await request('/api/rsvp',{token:reset.token,attendance:'attending',additionalNames:'   ',message:''})).r.status,201);
  assert.deepEqual((await request('/api/invitations/'+reset.token)).data.additional_names,[]);
