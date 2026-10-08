@@ -1,8 +1,14 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {invitationMessage} from '../../lib/rsvp/message.mjs';
-test('clipboard invitation preserves paragraphs and link on its own line',()=>{
- const message=invitationMessage('Graves',2,'http://localhost:5173/invite/example');
- assert.equal(message,"Hi Graves!\n\nWe'd love to celebrate our wedding day 👰🤵 with you on November 29, 2026.\nWe've reserved 2 seats for you!\nPlease RSVP here:\nhttp://localhost:5173/invite/example\n\nIf the link won’t open or you have any questions, just reply here!\n\nWith love,\nClive & Rubie");
- assert.match(invitationMessage('Ana',1,'url'),/1 seat for you!/);
+
+test('clipboard invitation preserves personal details, paragraphs and a separate link',()=>{
+ const url='https://clivefoundhisrubie.love/invite/example';
+ const message=invitationMessage('John Kevin',2,url);
+ assert.ok(message.startsWith('Hi John Kevin! 🥹💗\n\n'));
+ assert.ok(message.includes('We’ve saved 2 seats just for you!'));
+ assert.ok(message.includes('coming:\n'+url+'\n\n'));
+ assert.ok(message.endsWith('With love,\nClive & Rubie 💕'));
+ assert.match(invitationMessage('Ana',1,url),/1 seat just for you!/);
+ assert.ok(!/[—–]/u.test(message));
 });
