@@ -3,8 +3,8 @@ import {useEffect,useRef,useState} from 'react';
 import {Music2,VolumeX} from 'lucide-react';
 import {fadeVolume} from '@/lib/music-volume.mjs';
 export const weddingPlaylist = [
- 'panalangin', 'this-love', 'dilaw', 'palagi', 'forevermore',
- 'sayo', 'saksi-ang-langit', 'enchanted', 'closer',
+ 'panalangin', 'this-love', 'dilaw', 'binks-no-sake', 'palagi', 'forevermore',
+ 'sayo', 'saksi-ang-langit', 'enchanted', 'sparkle',
 ].map(song => `/invitation/music/${song}.mp3`);
 export function BackgroundMusic(){
  const [mounted,setMounted]=useState(false);

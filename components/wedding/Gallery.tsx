@@ -52,8 +52,8 @@ const moments = [
   },
   {
     "id": 7,
-    "src": "/photos/gallery/heritage-4048.webp",
-    "alt": "Rubie smiling beside antique furniture in her embroidered Filipiniana",
+    "src": "/photos/gallery/moment-4258.webp",
+    "alt": "Rubie looking up at Clive across a cafe table in her embroidered Filipiniana",
     "width": 1333,
     "height": 2000,
     "tone": "heritage"
@@ -107,8 +107,8 @@ const moments = [
     "tone": "garden"
   },
   {
-    "src": "/photos/gallery/portrait-4314.webp",
-    "alt": "Clive and Rubie leaning close together in a warmly lit heritage room",
+    "src": "/photos/gallery/moment-4344.webp",
+    "alt": "Clive and Rubie sharing coffee beneath woven lamps and a chandelier",
     "width": 1333,
     "height": 2000,
     "tone": "finished",
@@ -125,7 +125,7 @@ const moments = [
 ,
   {id:16,src:'/photos/gallery/moment-4977.webp',alt:'Clive and Rubie laughing together with a playful embrace',width:1333,height:2000,tone:'finished'}
 ,{"id":17,"src":"/photos/gallery/moment-4108.webp","alt":"Rubie smiling up at Clive in their embroidered heritage outfits","width":1333,"height":2000,"tone":"shadow-lift"},
-{"id":18,"src":"/photos/gallery/moment-4353.webp","alt":"Clive and Rubie sharing a quiet conversation over coffee","width":2000,"height":1333,"tone":"heritage"},
+{"id":18,"src":"/photos/gallery/river-walk.webp","alt":"Clive and Rubie walking hand in hand through a leafy river","width":2000,"height":1333,"tone":"heritage"},
 {"id":19,"src":"/photos/gallery/moment-4980.webp","alt":"Clive and Rubie making playful faces beneath antique portraits","width":2000,"height":1333,"tone":"finished"},
 {"id":20,"src":"/photos/gallery/moment-5246.webp","alt":"Clive and Rubie laughing and holding hands outside a heritage house","width":2000,"height":1333,"tone":"finished"},
 {"id":21,"src":"/photos/gallery/moment-5234.webp","alt":"Clive and Rubie tossing their shoes into the blue sky","width":1333,"height":2000,"tone":"finished"}

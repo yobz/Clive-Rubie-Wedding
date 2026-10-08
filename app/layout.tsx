@@ -2,8 +2,21 @@ import type { Metadata } from "next";
 import "./invitation.css";
 
 export const metadata: Metadata = {
-  title: "Clive & Rubie | Together, at last",
-  description: "Celebrate love, family, and Filipino heritage with Clive and Rubie. Our wedding invitation, story, venues and celebration details.",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://clive-rubie-wedding.vercel.app'),
+  title: "Clive and Rubie",
+  description: "Sa bawat bukas, ikaw.",
+  openGraph: {
+    title: "Clive and Rubie",
+    description: "Sa bawat bukas, ikaw.",
+    type: 'website',
+    images: [{url:'/invitation/social-preview.jpg',alt:'Clive and Rubie wedding invitation'}],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "Clive and Rubie",
+    description: "Sa bawat bukas, ikaw.",
+    images: ['/invitation/social-preview.jpg'],
+  },
   robots: { index: false, follow: false },
   referrer: 'no-referrer',
   other: {
