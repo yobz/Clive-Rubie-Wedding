@@ -430,7 +430,7 @@ html body .invitation-site h2{font-size:clamp(27px,3.3vw,45px)}
 .invitation-site .faq{background-image:radial-gradient(circle 290px at 94% 12%,#c5a25328 0%,#c5a25312 74%,transparent 100%),radial-gradient(circle 220px at 5% 66%,#c5a25325 0%,#c5a25310 74%,transparent 100%),radial-gradient(circle 180px at 62% 97%,#c5a25322 0%,#c5a25310 72%,transparent 100%);background-size:auto;background-repeat:no-repeat}
 
 .invitation-site .hero-title>.hero-tagline{font-size:24px}.invitation-site .section-title .eyebrow,.invitation-site .countdown>.container>.eyebrow,.invitation-site .rsvp-panel>.eyebrow{margin-top:15px}
-.invitation-site .rsvp-deadline strong,.invitation-site .reminders .rsvp-deadline-date{font-weight:700;color:var(--ink);background:#b89a621c;border-radius:4px;padding:2px 5px}
+.invitation-site .rsvp-deadline strong,.invitation-site .reminders .rsvp-deadline-date{font-weight:700;color:#c08f38;background:var(--rose);border-radius:4px;padding:2px 5px}
 
 .invitation-site .footer-logo img{width:clamp(80px,10vw,100px);height:auto;aspect-ratio:1;object-fit:contain}
 

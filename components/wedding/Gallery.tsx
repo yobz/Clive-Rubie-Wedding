@@ -132,7 +132,7 @@ const moments = [
 ];
 
 // Mix tall and wide photographs throughout the masonry columns.
-const galleryOrder = [1, 7, 5, 4, 17, 6, 3, 14, 21, 9, 15, 18, 8, 12, 20, 19, 16, 13, 11, 10];
+const galleryOrder = [1, 7, 5, 4, 17, 6, 3, 14, 21, 9, 15, 11, 8, 12, 20, 19, 16, 13, 18, 10];
 const orderedMoments = galleryOrder.map(id => moments.find(moment => moment.id === id)!);
 const galleryMoments = orderedMoments.map((moment, index) => ({ ...moment, id: index + 1, ratio: moment.width / moment.height }));
 
