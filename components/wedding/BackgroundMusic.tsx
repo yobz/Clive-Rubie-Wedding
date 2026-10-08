@@ -12,8 +12,8 @@ export function BackgroundMusic(){
  return mounted?<MusicPlayer/>:null;
 }
 function MusicPlayer(){
- const [volume,setVolume]=useState(40);
- const volumeLevel=useRef(.40);
+ const [volume,setVolume]=useState(20);
+ const volumeLevel=useRef(.20);
  const track=useRef(0);
  const audio=useRef<HTMLAudioElement>(null);
  const fade=useRef<number|null>(null);
