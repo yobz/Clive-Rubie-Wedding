@@ -76,11 +76,11 @@ const moments = [
   },
   {
     "id": 10,
-    "src": "/photos/gallery/moment-4796.webp",
-    "alt": "Smiling at each other along a leafy garden path",
-    "width": 1800,
-    "height": 1200,
-    "tone": "garden"
+    "src": "/photos/gallery/moment-5070.webp",
+    "alt": "Clive and Rubie making a heart with their arms beside a sunlit heritage window",
+    "width": 1600,
+    "height": 2400,
+    "tone": "finished"
   },
   {
     "id": 11,
@@ -132,7 +132,7 @@ const moments = [
 ];
 
 // Mix tall and wide photographs throughout the masonry columns.
-const galleryOrder = [1, 7, 5, 4, 17, 6, 3, 14, 21, 9, 15, 11, 8, 12, 20, 19, 16, 13, 18, 10];
+const galleryOrder = [1, 7, 5, 4, 17, 6, 3, 14, 21, 9, 15, 11, 8, 12, 20, 19, 16, 13, 10, 18];
 const orderedMoments = galleryOrder.map(id => moments.find(moment => moment.id === id)!);
 const galleryMoments = orderedMoments.map((moment, index) => ({ ...moment, id: index + 1, ratio: moment.width / moment.height }));
 
