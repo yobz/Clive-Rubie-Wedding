@@ -10,8 +10,8 @@ try{
  assert.equal((await request('/api/admin')).r.status,401);
  const login=await request('/api/admin',{action:'login',password:process.env.ADMIN_PASSWORD});assert.equal(login.r.status,200);cookie=login.r.headers.get('set-cookie').split(';')[0];
  let dashboard=await request('/api/admin',undefined,true);csrf=dashboard.data.csrf;
- const name='QA '+Date.now();assert.equal((await request('/api/admin',{action:'create',name,seats:3},true)).r.status,200);
- dashboard=await request('/api/admin',undefined,true);const row=dashboard.data.invitations.find(r=>r.main_guest_name===name);ids.push(row.id);
+ const name='QA '+Date.now();assert.equal((await request('/api/admin',{action:'create',name,seats:3,guestGroup:'groom'},true)).r.status,200);
+ dashboard=await request('/api/admin',undefined,true);const row=dashboard.data.invitations.find(r=>r.main_guest_name===name);ids.push(row.id);assert.equal(row.guest_group,'groom');
  assert.equal((await request('/api/invitations/'+row.token)).data.reserved_seats,3);
  for(const additionalNames of ['Lux, , Ahri','Li','!!!','Lux123','Lux, lux','Guest'])assert.equal((await request('/api/rsvp',{token:row.token,attendance:'attending',additionalNames,message:''})).r.status,400);
  assert.equal((await request('/api/invitations/'+row.token)).data.submitted_at,null);
@@ -23,12 +23,12 @@ try{
  const saved=(await request('/api/invitations/'+row.token)).data;assert.deepEqual(saved.additional_names,['Lux','Ahri']);assert.equal(saved.message,response.message);assert.ok(saved.submitted_at);
  assert.equal((await request('/api/admin',undefined,true)).data.invitations.find(r=>r.id===row.id).attendance,'attending');
  assert.ok((await request('/api/guest-messages')).data.messages.some(r=>r.name===name&&r.message===response.message));
- assert.equal((await request('/api/admin',{action:'update',id:row.id,name,seats:2,attendance:'attending',additionalNames:'Lux',message:response.message},true)).r.status,200);
+ assert.equal((await request('/api/admin',{action:'update',id:row.id,name,seats:2,guestGroup:'bride',attendance:'attending',additionalNames:'Lux',message:response.message},true)).r.status,200);
  assert.equal((await request('/api/admin',{action:'revoke',id:row.id},true)).r.status,200);assert.equal((await request('/api/invitations/'+row.token)).r.status,404);
  assert.equal((await request('/api/rsvp',response)).r.status,404);
  assert.ok(!(await request('/api/guest-messages')).data.messages.some(r=>r.name===name));
  assert.equal((await request('/api/admin',{action:'rotate',id:row.id},true)).r.status,200);assert.equal((await request('/api/invitations/'+row.token)).r.status,404);
- dashboard=await request('/api/admin',undefined,true);const reset=dashboard.data.invitations.find(r=>r.id===row.id);assert.equal(reset.attendance,null);assert.deepEqual(reset.additional_names,[]);assert.equal(reset.message,'');assert.equal(reset.submitted_at,null);assert.equal(reset.sent,false);assert.equal(reset.revoked,false);assert.notEqual(reset.token,row.token);assert.equal((await request('/api/invitations/'+reset.token)).r.status,200);
+ dashboard=await request('/api/admin',undefined,true);const reset=dashboard.data.invitations.find(r=>r.id===row.id);assert.equal(reset.guest_group,'bride');assert.equal(reset.attendance,null);assert.deepEqual(reset.additional_names,[]);assert.equal(reset.message,'');assert.equal(reset.submitted_at,null);assert.equal(reset.sent,false);assert.equal(reset.revoked,false);assert.notEqual(reset.token,row.token);assert.equal((await request('/api/invitations/'+reset.token)).r.status,200);
  assert.equal((await request('/api/rsvp',{token:reset.token,attendance:'declining',additionalNames:'Lux, Ahri',message:' Sorry, we cannot attend. '})).r.status,201);
  const declined=(await request('/api/invitations/'+reset.token)).data;assert.equal(declined.attendance,'declining');assert.deepEqual(declined.additional_names,[]);assert.equal(declined.message,'Sorry, we cannot attend.');assert.ok(!(await request('/api/guest-messages')).data.messages.some(r=>r.name===name));
  assert.equal((await request('/api/admin',{action:'update',id:row.id,name,seats:1,attendance:'pending',additionalNames:'',message:''},true)).r.status,200);

@@ -13,3 +13,5 @@ CREATE TABLE IF NOT EXISTS invitations (
  CHECK (attendance IS DISTINCT FROM 'attending' OR cardinality(additional_names) + 1 <= reserved_seats)
 );
 ALTER TABLE invitations ADD COLUMN IF NOT EXISTS token_ciphertext text;
+
+ALTER TABLE invitations ADD COLUMN IF NOT EXISTS guest_group text CHECK (guest_group IN ('bride','groom'));

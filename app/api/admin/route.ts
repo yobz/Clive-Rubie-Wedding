@@ -2,7 +2,7 @@ import {randomUUID,createCipheriv,createDecipheriv,createHash,randomBytes} from 
 import {db,newToken,hashToken} from '@/lib/rsvp/db';
 import {session,sameOrigin,makeSession,sessionCookie,safeEqual} from '@/lib/rsvp/auth';
 import {validateResponse} from '@/lib/rsvp/validation.mjs';
-import {parseHouseholds} from '@/lib/rsvp/csv.mjs';
+import {parseHouseholds,normalizeGuestGroup} from '@/lib/rsvp/csv.mjs';
 export const runtime='nodejs';
 const attempts=new Map<string,{count:number;until:number}>();
 function encrypt(token:string){const iv=randomBytes(12),key=createHash('sha256').update(process.env.ADMIN_SESSION_SECRET!).digest(),c=createCipheriv('aes-256-gcm',key,iv);const data=Buffer.concat([c.update(token,'utf8'),c.final()]);return Buffer.concat([iv,c.getAuthTag(),data]).toString('base64url');}
@@ -28,14 +28,14 @@ export async function POST(request:Request){
    const existing=await client.query('SELECT main_guest_name FROM invitations');
    const names=new Set(existing.rows.map(r=>r.main_guest_name.normalize('NFC').trim().replace(/\s+/g,' ').toLowerCase()));
    for(const household of households){if(names.has(household.name.toLowerCase()))throw Error('Already exists: '+household.name+'. No households were imported.');}
-   const records=households.map(household=>{const token=newToken();return {id:randomUUID(),name:household.name,seats:household.seats,hash:hashToken(token),encrypted:encrypt(token)};});
-   await client.query('INSERT INTO invitations(id,main_guest_name,reserved_seats,token_hash,token_ciphertext) SELECT * FROM unnest($1::uuid[],$2::text[],$3::integer[],$4::text[],$5::text[])',[records.map(r=>r.id),records.map(r=>r.name),records.map(r=>r.seats),records.map(r=>r.hash),records.map(r=>r.encrypted)]);
+   const records=households.map(household=>{const token=newToken();return {id:randomUUID(),name:household.name,seats:household.seats,group:household.group??null,hash:hashToken(token),encrypted:encrypt(token)};});
+   await client.query('INSERT INTO invitations(id,main_guest_name,reserved_seats,token_hash,token_ciphertext,guest_group) SELECT * FROM unnest($1::uuid[],$2::text[],$3::integer[],$4::text[],$5::text[],$6::text[])',[records.map(r=>r.id),records.map(r=>r.name),records.map(r=>r.seats),records.map(r=>r.hash),records.map(r=>r.encrypted),records.map(r=>r.group)]);
    await client.query('COMMIT');return json({ok:true,imported:households.length});
   }catch(error){await client.query('ROLLBACK');throw error;}finally{client.release();}
  }
  if(input.action==='create'){
   if(typeof input.name!=='string'||input.name.trim().length<2||input.name.length>100||!Number.isInteger(input.seats)||input.seats<1||input.seats>30)return json({error:'Enter a name (2-100 characters) and 1-30 seats.'},400);
-  const token=newToken();await db().query('INSERT INTO invitations(id,main_guest_name,reserved_seats,token_hash,token_ciphertext) VALUES($1,$2,$3,$4,$5)',[randomUUID(),input.name.trim(),input.seats,hashToken(token),encrypt(token)]);return json({ok:true});
+  const group=normalizeGuestGroup(input.guestGroup);const token=newToken();await db().query('INSERT INTO invitations(id,main_guest_name,reserved_seats,token_hash,token_ciphertext,guest_group) VALUES($1,$2,$3,$4,$5,$6)',[randomUUID(),input.name.trim(),input.seats,hashToken(token),encrypt(token),group]);return json({ok:true});
  }
  if(input.action==='delete'){
   const ids=input.ids;
@@ -49,8 +49,9 @@ export async function POST(request:Request){
  if(input.action==='sent'){if(typeof input.sent!=='boolean')return json({error:'Invalid sent status.'},400);await db().query('UPDATE invitations SET sent=$1 WHERE id=$2',[input.sent,input.id]);return json({ok:true});}
  if(input.action==='update'){
   if(typeof input.name!=='string'||input.name.trim().length<2||input.name.length>100||!Number.isInteger(input.seats)||input.seats<1||input.seats>30)return json({error:'Enter a name and 1-30 seats.'},400);
+  const group=input.guestGroup===undefined?undefined:normalizeGuestGroup(input.guestGroup);
   const response=input.attendance==='pending'?null:validateResponse(input,input.seats);
-  await db().query('UPDATE invitations SET main_guest_name=$1,reserved_seats=$2,attendance=$3,additional_names=$4,message=$5,submitted_at=CASE WHEN $3::text IS NULL THEN NULL ELSE COALESCE(submitted_at,now()) END WHERE id=$6',[input.name.trim(),input.seats,response?.attendance??null,response?.names??[],response?.message??'',input.id]);return json({ok:true});
+  await db().query('UPDATE invitations SET main_guest_name=$1,reserved_seats=$2,attendance=$3,additional_names=$4,message=$5,guest_group=CASE WHEN $7::boolean THEN $8::text ELSE guest_group END,submitted_at=CASE WHEN $3::text IS NULL THEN NULL ELSE COALESCE(submitted_at,now()) END WHERE id=$6',[input.name.trim(),input.seats,response?.attendance??null,response?.names??[],response?.message??'',input.id,group!==undefined,group??null]);return json({ok:true});
  }
  return json({error:'Unknown action.'},400);
  }catch(error){if(error instanceof Error&&!(error as Error&{code?:string}).code)return json({error:error.message},400);return json({error:'The change could not be saved.'},503);}
