@@ -14,7 +14,7 @@ export async function POST(request:Request){
  if(!rows[0]){await client.query('ROLLBACK');return Response.json({error:'This invitation is unavailable.'},{status:404});}
  if(rows[0].submitted_at){await client.query('ROLLBACK');return Response.json({error:'Your response has already been received. Please contact Clive and Rubie for changes.'},{status:409});}
  let response;try{response=validateResponse(input,rows[0].reserved_seats,rows[0].message_only);}catch(error){await client.query('ROLLBACK');return Response.json({error:(error as Error).message},{status:400});}
- await client.query('UPDATE invitations SET attendance=$1,additional_names=$2,message=$3,submitted_at=now() WHERE id=$4',[response.attendance,response.names,response.message,rows[0].id]);
+ await client.query('UPDATE invitations SET attendance=$1,additional_names=$2,message=$3,submitted_at=now(),edit_version=edit_version+1 WHERE id=$4',[response.attendance,response.names,response.message,rows[0].id]);
  await client.query('COMMIT');return Response.json({saved:true},{status:201});
  }catch(error){if(client)await client.query('ROLLBACK').catch(()=>{});client?.release();client=undefined;const reference=await recordInvitationError('rsvp-save',error,input.token);return Response.json({error:'We could not save your response. Please try again. Reference: '+reference},{status:503});}finally{client?.release();}
 }

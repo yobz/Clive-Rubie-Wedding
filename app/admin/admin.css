@@ -79,3 +79,8 @@
 .admin-message-only{display:flex!important;align-items:center;gap:10px}.admin-message-only input[type="checkbox"]{width:20px;min-height:20px;flex-shrink:0}
 
 .admin-badge.is-message-only{background:#f3e7e7;color:#67434a}
+
+.admin-response-fields{margin:0;padding:0;border:0;min-width:0}.admin-response-fields[hidden]{display:none}.admin-sign-in-recovery{padding:14px;border:1px solid #b77d87;border-radius:8px;background:#f3e7e7}.admin-edit form[aria-busy="true"]{opacity:.8}
+
+@media(max-width:750px){.admin-primary-actions button,.admin-bulk-actions button,.admin-pagination button,.admin-toolbar button,.admin-modal-actions button,.admin-page .admin-notification-toggle{min-height:44px}.admin-page .admin-notification-toggle{width:44px}.admin-sidebar-toggle::before{content:"";position:absolute;inset:-4px}}
+@media(hover:none){.admin-image-preview{display:none!important}}

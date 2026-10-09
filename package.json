@@ -15,6 +15,7 @@
     "db:generate": "drizzle-kit generate",
     "dev:vinext": "vinext dev --port 5173",
     "db:setup": "node scripts/rsvp/setup.mjs",
+    "test:dashboard": "node scripts/rsvp/dashboard-qa.mjs",
     "test:rsvp": "node --test scripts/rsvp/*.test.mjs scripts/headcounts.test.mjs",
     "start:vinext": "node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js dev --config dist/server/wrangler.json --local --persist-to .wrangler/state --ip 127.0.0.1 --inspector-port 0",
     "test": "node --test scripts/rsvp/*.test.mjs scripts/headcounts.test.mjs scripts/music-volume.test.mjs",

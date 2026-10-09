@@ -45,22 +45,38 @@ export async function POST(request:Request){
   const result=await db().query('DELETE FROM invitations WHERE id = ANY($1::uuid[])',[ids]);
   return json({ok:true,deleted:result.rowCount});
  }
- if(typeof input.id!=='string'||!/^[0-9a-f-]{36}$/i.test(input.id))return json({error:'Invalid invitation.'},400);
- if(input.action==='rotate'){const token=newToken();await db().query("UPDATE invitations SET token_hash=$1,token_ciphertext=$2,revoked=false,attendance=NULL,additional_names='{}',message='',submitted_at=NULL,sent=false WHERE id=$3",[hashToken(token),encrypt(token),input.id]);return json({ok:true});}
- if(input.action==='revoke'){await db().query('UPDATE invitations SET revoked=true WHERE id=$1',[input.id]);return json({ok:true});}
- if(input.action==='sent'){if(typeof input.sent!=='boolean')return json({error:'Invalid sent status.'},400);await db().query('UPDATE invitations SET sent=$1 WHERE id=$2',[input.sent,input.id]);return json({ok:true});}
- if(input.action==='update'){
-  if(input.messageOnly===undefined){
-   const current=await db().query('SELECT message_only FROM invitations WHERE id=$1',[input.id]);
-   if(!current.rows[0])return json({error:'This invitation no longer exists. Refresh the dashboard.'},404);
-   input.messageOnly=current.rows[0].message_only;
-  }
-  if(typeof input.messageOnly!=='boolean')return json({error:'Choose the invitation type.'},400);
-  if(input.messageOnly)input.seats=1;
-  if(typeof input.name!=='string'||input.name.trim().length<2||input.name.length>100||!Number.isInteger(input.seats)||input.seats<1||input.seats>30)return json({error:'Enter a name and 1-30 seats.'},400);
-  const group=input.guestGroup===undefined?undefined:normalizeGuestGroup(input.guestGroup);
-  const response=input.messageOnly?(typeof input.message==='string'&&input.message.trim()?validateResponse(input,1,true):null):input.attendance==='pending'?null:validateResponse(input,input.seats);
-  await db().query('UPDATE invitations SET main_guest_name=$1,reserved_seats=$2,attendance=$3,additional_names=$4,message=$5,guest_group=CASE WHEN $7::boolean THEN $8::text ELSE guest_group END,message_only=$9,submitted_at=CASE WHEN $10::boolean THEN COALESCE(submitted_at,now()) ELSE NULL END WHERE id=$6',[input.name.trim(),input.seats,response?.attendance??null,response?.names??[],response?.message??'',input.id,group!==undefined,group??null,input.messageOnly,Boolean(response)]);return json({ok:true});
+ if(typeof input.id!=='string'||!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(input.id))return json({error:'Invalid invitation.'},400);
+ if(['update','rotate','revoke','sent'].includes(input.action)){
+  if(input.expectedVersion!==undefined&&(!Number.isInteger(input.expectedVersion)||input.expectedVersion<0))return json({error:'Invalid edit version. Refresh the dashboard.'},400);
+  const client=await db().connect();
+  try{
+   await client.query('BEGIN');
+   // Serialize admin changes with guest submissions, then reject stale dashboard snapshots.
+   const currentResult=await client.query('SELECT * FROM invitations WHERE id=$1 FOR UPDATE',[input.id]);
+   const current=currentResult.rows[0];
+   if(!current){await client.query('ROLLBACK');return json({error:'This invitation no longer exists. Refresh the dashboard.'},404);}
+   if(input.expectedVersion!==undefined&&input.expectedVersion!==current.edit_version){await client.query('ROLLBACK');return json({error:'This household changed since you opened it. Your draft has been kept. Reload the latest household before saving.'},409);}
+   if(input.action==='rotate'){
+    const token=newToken();await client.query("UPDATE invitations SET token_hash=$1,token_ciphertext=$2,revoked=false,attendance=NULL,additional_names='{}',message='',submitted_at=NULL,sent=false,edit_version=edit_version+1 WHERE id=$3",[hashToken(token),encrypt(token),input.id]);
+   }else if(input.action==='revoke'){
+    await client.query('UPDATE invitations SET revoked=true,edit_version=edit_version+1 WHERE id=$1',[input.id]);
+   }else if(input.action==='sent'){
+    if(typeof input.sent!=='boolean'){await client.query('ROLLBACK');return json({error:'Invalid sent status.'},400);}
+    await client.query('UPDATE invitations SET sent=$1,edit_version=edit_version+1 WHERE id=$2',[input.sent,input.id]);
+   }else{
+    if(input.messageOnly===undefined)input.messageOnly=current.message_only;
+    if(typeof input.messageOnly!=='boolean')throw Error('Choose the invitation type.');
+    if(input.messageOnly)input.seats=1;
+    if(typeof input.name!=='string'||input.name.trim().length<2||input.name.length>100||!Number.isInteger(input.seats)||input.seats<1||input.seats>30)throw Error('Enter a name and 1-30 seats.');
+    if(typeof input.message!=='string'||input.message.length>2000)throw Error('Please keep your message within 2,000 characters.');
+    if(!input.messageOnly&&input.attendance==='pending'&&current.submitted_at&&input.expectedVersion===undefined){await client.query('ROLLBACK');return json({error:'This invitation already has a response. Refresh the dashboard before reopening it.'},409);}
+    const group=input.guestGroup===undefined?undefined:normalizeGuestGroup(input.guestGroup);
+    const response=input.messageOnly?(input.message.trim()?validateResponse(input,1,true):null):input.attendance==='pending'?null:validateResponse(input,input.seats);
+    // Reopening clears attendance and additional guests, but retains the provided private message draft.
+    await client.query('UPDATE invitations SET main_guest_name=$1,reserved_seats=$2,attendance=$3,additional_names=$4,message=$5,guest_group=CASE WHEN $7::boolean THEN $8::text ELSE guest_group END,message_only=$9,submitted_at=CASE WHEN $10::boolean THEN COALESCE(submitted_at,now()) ELSE NULL END,edit_version=edit_version+1 WHERE id=$6',[input.name.trim(),input.seats,response?.attendance??null,response?.names??[],response?.message??input.message.trim(),input.id,group!==undefined,group??null,input.messageOnly,Boolean(response)]);
+   }
+   await client.query('COMMIT');return json({ok:true});
+  }catch(error){await client.query('ROLLBACK');throw error;}finally{client.release();}
  }
  return json({error:'Unknown action.'},400);
  }catch(error){if(error instanceof Error&&!(error as Error&{code?:string}).code)return json({error:error.message},400);return json({error:'The change could not be saved.'},503);}

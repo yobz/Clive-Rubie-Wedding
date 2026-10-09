@@ -1,9 +1,10 @@
 'use client';
 import {useEffect,useState} from 'react';
+import {adminRequest} from '@/lib/rsvp/admin-request.mjs';
 type Incident={id:string;stage:string;error_code:string;created_at:string;main_guest_name:string|null};
 export function AdminErrorLog(){
  const [incidents,setIncidents]=useState<Incident[]>([]),[status,setStatus]=useState(''),[loading,setLoading]=useState(true);
- async function refresh(){setLoading(true);setStatus('');try{const response=await fetch('/api/admin/errors',{cache:'no-store'});const data=await response.json() as {error?:string;errors:Incident[]};if(!response.ok)throw Error(data.error);setIncidents(data.errors);}catch(error){setStatus((error as Error).message);}finally{setLoading(false);}}
+ async function refresh(){setLoading(true);setStatus('');try{const data=await adminRequest('/api/admin/errors',{cache:'no-store'}) as {errors:Incident[]};setIncidents(data.errors);}catch(error){setStatus((error as Error).message);}finally{setLoading(false);}}
  // The request completes asynchronously before updating state.
  // eslint-disable-next-line react-hooks/set-state-in-effect
  useEffect(()=>{void refresh();},[]);

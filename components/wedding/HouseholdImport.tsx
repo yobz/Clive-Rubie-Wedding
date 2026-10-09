@@ -1,9 +1,10 @@
 'use client';
 import {useEffect,useRef,useState} from 'react';
 import {LoaderCircle} from 'lucide-react';
+import {adminRequest,AdminRequestError} from '@/lib/rsvp/admin-request.mjs';
 import {parseHouseholds} from '@/lib/rsvp/csv.mjs';
 type Household={name:string;seats:number;group?:string|null};
-export function HouseholdImport({csrf,busy,onBusyChange,onImported}:{csrf:string;busy:boolean;onBusyChange:(busy:boolean)=>void;onImported:()=>Promise<void>}){
+export function HouseholdImport({csrf,busy,onBusyChange,onImported,onSessionExpired}:{csrf:string;busy:boolean;onBusyChange:(busy:boolean)=>void;onImported:()=>Promise<void>;onSessionExpired:()=>void}){
  const [csv,setCsv]=useState(''),[rows,setRows]=useState<Household[]>([]),[phase,setPhase]=useState<'idle'|'reading'|'ready'|'importing'|'success'|'error'>('idle'),[elapsed,setElapsed]=useState(0),[notice,setNotice]=useState(''),[filename,setFilename]=useState('');
  const locked=useRef(false),started=useRef(0);
  useEffect(()=>{if(phase!=='importing')return;const timer=setInterval(()=>setElapsed(Math.floor((performance.now()-started.current)/1000)),1000);return()=>clearInterval(timer);},[phase]);
@@ -15,13 +16,11 @@ export function HouseholdImport({csrf,busy,onBusyChange,onImported}:{csrf:string
  async function importHouseholds(){
   if(locked.current||busy||!rows.length)return;locked.current=true;onBusyChange(true);started.current=performance.now();setElapsed(0);setNotice('');setPhase('importing');
   try{
-   const response=await fetch('/api/admin',{method:'POST',headers:{'Content-Type':'application/json','x-csrf-token':csrf},body:JSON.stringify({action:'import',csv})});
-   const result=await response.json() as {error?:string;imported?:number};
-   if(!response.ok){setPhase('error');setNotice(result.error||'Import failed. No households were added.');return;}
+   const result=await adminRequest('/api/admin',{method:'POST',headers:{'Content-Type':'application/json','x-csrf-token':csrf},body:JSON.stringify({action:'import',csv})},30000) as {imported?:number};
    if(!Number.isInteger(result.imported))throw Error('Missing import confirmation');
    const seconds=((performance.now()-started.current)/1000).toFixed(1);
    setNotice(`Successfully imported ${result.imported} households in ${seconds} seconds. Their invitation links are ready below.`);setRows([]);setCsv('');setPhase('success');await onImported();
-  }catch{setPhase('error');setNotice('We could not confirm the import. Refresh the dashboard before retrying to check whether the households were saved.');}
+  }catch(error){setPhase('error');if(error instanceof AdminRequestError){if(error.status===401)onSessionExpired();if(error.outcomeUnknown){setRows([]);setCsv('');}}setNotice((error as Error).message);}
   finally{locked.current=false;onBusyChange(false);}
  }
  const working=phase==='reading'||phase==='importing';
