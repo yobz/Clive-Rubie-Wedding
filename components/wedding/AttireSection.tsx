@@ -5,8 +5,8 @@ import { useEffect, useRef, useState } from 'react';
 import './attire.css';
 
 const panels = [
-  { title: 'For the ladies', description: 'Modern Filipiniana in joyful colours, expressive details, and your own beautiful style.', image: '1.png', alt: 'Seven examples of colourful modern Filipiniana outfits, including dresses, separates, and a tailored barong ensemble' },
-  { title: 'For the gentlemen', description: 'A classic or contemporary Barong, tailored trousers, and polished dress shoes.', image: 'gentlemen-five.png', alt: 'Five examples of traditional cream and contemporary embroidered Barong ensembles with tailored trousers' },
+  { title: 'For the ladies', description: 'Modern Filipiniana in joyful colours, expressive details, and your own beautiful style.', image: '1.webp', alt: 'Seven examples of colourful modern Filipiniana outfits, including dresses, separates, and a tailored barong ensemble' },
+  { title: 'For the gentlemen', description: 'A classic or contemporary Barong, tailored trousers, and polished dress shoes.', image: 'gentlemen-five.webp', alt: 'Five examples of traditional cream and contemporary embroidered Barong ensembles with tailored trousers' },
 ];
 
 export function AttireSection() {

@@ -69,3 +69,5 @@
 .admin-secondary-counts strong{font-size:15px}
 
 .admin-secondary-counts{color:#8b747b;flex-wrap:wrap;gap:28px;padding:20px 3px;font-size:15px}
+
+.admin-copy-modal p{font-size:13px;margin-bottom:16px}.admin-copy-modal textarea{width:100%;max-height:45dvh;font-size:16px;white-space:pre-wrap}.admin-copy-modal .admin-modal-actions{flex-wrap:wrap}

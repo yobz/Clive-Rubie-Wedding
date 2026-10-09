@@ -9,7 +9,7 @@ export function ScrollNavigation(){
  useEffect(()=>{const close=(event:KeyboardEvent)=>{if(event.key==='Escape')setOpen(false)};window.addEventListener('keydown',close);return()=>window.removeEventListener('keydown',close)},[]);
  const links=(items:string[][])=>items.map(([id,label])=><a key={id} href={`#${id}`} className={id==='rsvp'?'nav-rsvp-action':undefined} onClick={()=>setOpen(false)}>{label}</a>);
  return <header className={`scroll-navigation${visible?' shown':''}`} aria-hidden={!visible}><nav aria-label="Main navigation">
- <a className="nav-monogram" href="#home" aria-label="Clive and Rubie home" onClick={()=>setOpen(false)}><img src="/invitation/monogram-new.png" alt=""/></a>
+ <a className="nav-monogram" href="#home" aria-label="Clive and Rubie home" onClick={()=>setOpen(false)}><img src="/invitation/monogram-new.webp" alt=""/></a>
  <a href="#rsvp" className="nav-rsvp-action nav-rsvp-mobile" onClick={()=>setOpen(false)}>RSVP</a>
  <button type="button" className={`nav-menu-toggle${open?' is-open':''}`} aria-label={open?'Close section menu':'Open section menu'} aria-expanded={open} aria-controls="section-navigation" onClick={()=>setOpen(!open)}><span className="nav-menu-icon" aria-hidden="true"><i/><i/><i/></span><span>Sections</span></button>
  <div id="section-navigation" className={`nav-section-links${open?' is-open':''}`}><div className="nav-links-left">{links(sections.slice(0,4))}</div><div className="nav-links-right">{links(sections.slice(4))}</div></div>

@@ -64,7 +64,7 @@ export function LogoPreloader({notFound=false}:{notFound?:boolean}={}){
   <div className="wedding-envelope-scene">
    <button type="button" className="wedding-splash-logo" onClick={open} disabled={phase!=='ready'} aria-label={notFound?'Return to our invitation':'Open invitation'}>
     <span ref={artwork} className="wedding-splash-artwork" aria-hidden="true"/>
-    {fallback&&<img src="/seal-preview/seal-static.png" alt=""/>}
+    {fallback&&<img src="/seal-preview/seal-static.webp" alt=""/>}
    </button>
    <div className="wedding-splash-prompt" aria-hidden={phase==='drawing'}>
     {notFound&&<><p className="not-found-code">404</p><h1 className="not-found-title">A little lost?</h1><p className="not-found-description">This page could not be found. Our celebration is just a tap away.</p></>}
