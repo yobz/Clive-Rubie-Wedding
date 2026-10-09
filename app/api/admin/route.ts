@@ -50,6 +50,11 @@ export async function POST(request:Request){
  if(input.action==='revoke'){await db().query('UPDATE invitations SET revoked=true WHERE id=$1',[input.id]);return json({ok:true});}
  if(input.action==='sent'){if(typeof input.sent!=='boolean')return json({error:'Invalid sent status.'},400);await db().query('UPDATE invitations SET sent=$1 WHERE id=$2',[input.sent,input.id]);return json({ok:true});}
  if(input.action==='update'){
+  if(input.messageOnly===undefined){
+   const current=await db().query('SELECT message_only FROM invitations WHERE id=$1',[input.id]);
+   if(!current.rows[0])return json({error:'This invitation no longer exists. Refresh the dashboard.'},404);
+   input.messageOnly=current.rows[0].message_only;
+  }
   if(typeof input.messageOnly!=='boolean')return json({error:'Choose the invitation type.'},400);
   if(input.messageOnly)input.seats=1;
   if(typeof input.name!=='string'||input.name.trim().length<2||input.name.length>100||!Number.isInteger(input.seats)||input.seats<1||input.seats>30)return json({error:'Enter a name and 1-30 seats.'},400);
