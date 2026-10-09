@@ -1,0 +1,3 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {shufflePlaylist} from '../../lib/music-playlist.mjs';
+test('shuffle creates a new order without losing, duplicating, or mutating tracks',()=>{const tracks=['a','b','c','d'];const result=shufflePlaylist(tracks,()=>0);assert.deepEqual([...result].sort(),tracks);assert.notDeepEqual(result,tracks);assert.deepEqual(tracks,['a','b','c','d']);assert.notEqual(result,tracks);});
+test('separate visits can produce different orders and small playlists remain valid',()=>{assert.notDeepEqual(shufflePlaylist(['a','b','c'],()=>0),shufflePlaylist(['a','b','c'],()=>0.99));assert.deepEqual(shufflePlaylist([]),[]);assert.deepEqual(shufflePlaylist(['a']),['a']);});

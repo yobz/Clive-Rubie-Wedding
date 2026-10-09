@@ -2,6 +2,7 @@
 import {useEffect,useRef,useState} from 'react';
 import {Music2,VolumeX} from 'lucide-react';
 import {fadeVolume} from '@/lib/music-volume.mjs';
+import {shufflePlaylist} from '@/lib/music-playlist.mjs';
 export const weddingPlaylist = [
  'panalangin', 'this-love', 'dilaw', 'binks-no-sake', 'palagi', 'forevermore',
  'sayo', 'saksi-ang-langit', 'enchanted', 'sparkle',
@@ -12,6 +13,7 @@ export function BackgroundMusic(){
  return mounted?<MusicPlayer/>:null;
 }
 function MusicPlayer(){
+ const [playlist]=useState<string[]>(()=>shufflePlaylist(weddingPlaylist));
  const [volume,setVolume]=useState(20);
  const volumeLevel=useRef(.20);
  const track=useRef(0);
@@ -74,11 +76,11 @@ function MusicPlayer(){
  function nextTrack(){
   const player=audio.current;if(!player)return;
   stopFade();
-  track.current=(track.current+1)%weddingPlaylist.length;
-  player.src=weddingPlaylist[track.current];
+  track.current=(track.current+1)%playlist.length;
+  player.src=playlist[track.current];
   setLevel(revealed.current ? volumeLevel.current : 0);
   void player.play().then(()=>setFailed(false)).catch(()=>{setPlaying(false);setFailed(true);});
  }
  async function toggle(){const player=audio.current;if(!player)return;stopFade();if(!player.paused){player.pause();return;}try{const resumed=prepareAudio();setLevel(volumeLevel.current);await Promise.all([resumed,player.play()]);setFailed(false);}catch{setFailed(true);}}
- return <div className="background-music"><audio ref={audio} src={weddingPlaylist[0]} preload="metadata" onEnded={nextTrack} onPlay={()=>setPlaying(true)} onPause={()=>setPlaying(false)} onError={()=>{setPlaying(false);setFailed(true);}}/><button type="button" onClick={toggle} aria-label={playing?'Pause background music':'Play background music'} aria-pressed={playing}>{playing?<VolumeX size={18}/>:<Music2 size={18}/>}<span>{playing?'Music on':'Play music'}</span></button><label className="music-volume">Volume <input aria-label="Music volume" type="range" min="0" max="100" value={volume} onChange={event=>{const level=Number(event.target.value);setVolume(level);volumeLevel.current=level/100;stopFade();setLevel(volumeLevel.current);}}/><output>{volume}%</output></label>{failed&&<p role="status">Music could not play. Tap to retry.</p>}</div>;
+ return <div className="background-music"><audio ref={audio} src={playlist[0]} preload="metadata" onEnded={nextTrack} onPlay={()=>setPlaying(true)} onPause={()=>setPlaying(false)} onError={()=>{setPlaying(false);setFailed(true);}}/><button type="button" onClick={toggle} aria-label={playing?'Pause background music':'Play background music'} aria-pressed={playing}>{playing?<VolumeX size={18}/>:<Music2 size={18}/>}<span>{playing?'Music on':'Play music'}</span></button><label className="music-volume">Volume <input aria-label="Music volume" type="range" min="0" max="100" value={volume} onChange={event=>{const level=Number(event.target.value);setVolume(level);volumeLevel.current=level/100;stopFade();setLevel(volumeLevel.current);}}/><output>{volume}%</output></label>{failed&&<p role="status">Music could not play. Tap to retry.</p>}</div>;
 }
