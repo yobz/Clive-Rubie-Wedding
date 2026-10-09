@@ -3,11 +3,12 @@ import {cache} from 'react';
 import {notFound} from 'next/navigation';
 import {db,hashToken,validToken} from '@/lib/rsvp/db';
 import {TokenInvitation} from '@/components/wedding/TokenInvitation';
+import {recordInvitationError} from '@/lib/rsvp/errors';
 export const runtime='nodejs';
 export const dynamic='force-dynamic';
 const findInvitation=cache(async(token:string)=>{
  if(!validToken(token))notFound();
- const {rows}=await db().query('SELECT id,guest_group FROM invitations WHERE token_hash=$1 AND NOT revoked LIMIT 1',[hashToken(token)]);
+ const {rows}=await (async()=>{try{return await db().query('SELECT id,guest_group FROM invitations WHERE token_hash=$1 AND NOT revoked LIMIT 1',[hashToken(token)]);}catch(error){await recordInvitationError('invitation-page',error,token);throw error;}})();
  if(!rows.length)notFound();
  return rows[0] as {id:string;guest_group:string|null};
 });

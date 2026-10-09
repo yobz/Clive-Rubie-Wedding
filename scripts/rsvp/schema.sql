@@ -15,3 +15,12 @@ CREATE TABLE IF NOT EXISTS invitations (
 ALTER TABLE invitations ADD COLUMN IF NOT EXISTS token_ciphertext text;
 
 ALTER TABLE invitations ADD COLUMN IF NOT EXISTS guest_group text CHECK (guest_group IN ('bride','groom'));
+
+CREATE TABLE IF NOT EXISTS invitation_errors (
+ id uuid PRIMARY KEY,
+ stage text NOT NULL,
+ error_code text NOT NULL,
+ token_reference text,
+ created_at timestamptz NOT NULL DEFAULT now()
+);
+CREATE INDEX IF NOT EXISTS invitation_errors_created_at_idx ON invitation_errors(created_at);
