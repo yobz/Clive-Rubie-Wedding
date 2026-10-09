@@ -9,3 +9,5 @@ test('RSVP and message have independent unread state, including private declinin
 });
 test('pending households and blank messages do not create extra notifications',()=>{assert.equal(invitationNotifications([{...response,attendance:null},{...response,submitted_at:null}]).length,0);assert.equal(invitationNotifications([{...response,message:'  '}]).length,1);});
 test('a new submission after reopening becomes unread again',()=>{const old=invitationNotifications([response]);assert.equal(invitationNotifications([{...response,submitted_at:'2026-10-10T00:00:00Z'}],old.map(item=>item.key)).length,2);});
+
+test('database dates and browser timestamps share identical read keys',()=>{assert.deepEqual(invitationNotifications([{...response,submitted_at:new Date(response.submitted_at)}]),invitationNotifications([response]));});

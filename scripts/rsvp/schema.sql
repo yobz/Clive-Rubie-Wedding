@@ -24,3 +24,5 @@ CREATE TABLE IF NOT EXISTS invitation_errors (
  created_at timestamptz NOT NULL DEFAULT now()
 );
 CREATE INDEX IF NOT EXISTS invitation_errors_created_at_idx ON invitation_errors(created_at);
+
+CREATE TABLE IF NOT EXISTS admin_notification_reads (notification_key text PRIMARY KEY, read_at timestamptz NOT NULL DEFAULT now());
