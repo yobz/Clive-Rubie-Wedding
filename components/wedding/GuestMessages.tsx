@@ -6,7 +6,7 @@ type Message={name:string;message:string};
 export function GuestMessages(){
  const [messages,setMessages]=useState<Message[]>([]),[active,setActive]=useState(0);
  useEffect(()=>{let live=true;const load=()=>fetch('/api/guest-messages').then(r=>r.ok?r.json() as Promise<{messages:Message[]}>:null).then(data=>{if(live&&data)setMessages(data.messages);}).catch(()=>{});load();window.addEventListener('wedding:rsvp-saved',load);return()=>{live=false;window.removeEventListener('wedding:rsvp-saved',load);};},[]);
- useEffect(()=>{if(messages.length<2)return;const timer=setInterval(()=>{if(!document.hidden)setActive(v=>(v+1)%messages.length);},5000);return()=>clearInterval(timer);},[messages.length]);
+ useEffect(()=>{if(messages.length<2)return;const timer=setInterval(()=>{if(!document.hidden)setActive(v=>(v+1)%messages.length);},10000);return()=>clearInterval(timer);},[active,messages.length]);
  if(!messages.length)return null;
  const current=active%messages.length;
  const change=(direction:number)=>setActive(v=>(v+direction+messages.length)%messages.length);
