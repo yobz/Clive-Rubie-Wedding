@@ -65,3 +65,5 @@
 @media(max-height:450px){.admin-shell:not(.is-signed-in) .admin-page{min-height:100dvh;grid-template-rows:88px auto 24px}}
 
 .admin-secondary-counts .is-declined strong{color:#a33144}.admin-secondary-counts .is-pending strong{color:#876021}.admin-secondary-counts .is-sent strong{color:#496643}.admin-secondary-counts .is-not-sent strong{color:#a96f7b}
+
+.admin-secondary-counts strong{font-size:15px}
