@@ -436,3 +436,11 @@ html body .invitation-site h2{font-size:clamp(27px,3.3vw,45px)}
 
 .invitation-site .rsvp-welcome strong{color:#c08f38}
 
+
+/* Give the RSVP action a clear, quiet emphasis in the invitation navigation. */
+.invitation-site .scroll-navigation a.nav-rsvp-action{background:var(--rose);color:var(--ivory);border:1px solid var(--rose);border-radius:10px;padding:5px 18px;min-height:44px;font-size:20px;font-weight:700;line-height:1.2;letter-spacing:.03em;transition:background .2s ease,border-color .2s ease}
+.invitation-site .scroll-navigation a.nav-rsvp-action:hover{background:#a96f7b;border-color:#a96f7b}
+.invitation-site .scroll-navigation a.nav-rsvp-mobile{display:none}
+@media(max-width:1399px){.invitation-site .scroll-navigation a.nav-rsvp-mobile{display:inline-flex;order:1}.nav-menu-toggle{order:2}.nav-section-links a.nav-rsvp-action{display:none}}
+@media(max-width:767px){.invitation-site .scroll-navigation .nav-monogram{left:20px;transform:translateY(-50%)}.invitation-site .scroll-navigation nav{gap:12px}.invitation-site .scroll-navigation a.nav-rsvp-action{padding:5px 16px}}
+@media(prefers-reduced-motion:reduce){.invitation-site .scroll-navigation a.nav-rsvp-action{transition:none}}
