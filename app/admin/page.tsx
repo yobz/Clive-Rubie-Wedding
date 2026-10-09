@@ -17,7 +17,7 @@ export default function Admin(){
  const [sidebarCollapsed,setSidebarCollapsed]=useState(false);
  const createDialog=useRef<HTMLDialogElement>(null);
  useEffect(()=>{const modal=createDialog.current;if(creating)modal?.showModal();return()=>modal?.close();},[creating]);
- const messageRows=rows.filter(row=>row.message.trim()&&(messageFilter==='all'||row.attendance===messageFilter));
+ const messageRows=rows.filter(row=>row.message.trim()&&(messageFilter==='all'||row.attendance===messageFilter)).sort((a,b)=>(b.submitted_at?Date.parse(b.submitted_at):0)-(a.submitted_at?Date.parse(a.submitted_at):0));
  const [selected,setSelected]=useState<string[]>([]);
  const deletionLock=useRef(false);
  const [toast,setToast]=useState<{text:string;error:boolean}|null>(null);
