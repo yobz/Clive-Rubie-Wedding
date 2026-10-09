@@ -34,8 +34,10 @@ export async function POST(request:Request){
   }catch(error){await client.query('ROLLBACK');throw error;}finally{client.release();}
  }
  if(input.action==='create'){
+  if(input.messageOnly!==undefined&&typeof input.messageOnly!=='boolean')return json({error:'Invalid invitation type.'},400);
+  if(input.messageOnly)input.seats=1;
   if(typeof input.name!=='string'||input.name.trim().length<2||input.name.length>100||!Number.isInteger(input.seats)||input.seats<1||input.seats>30)return json({error:'Enter a name (2-100 characters) and 1-30 seats.'},400);
-  const group=normalizeGuestGroup(input.guestGroup);const token=newToken();await db().query('INSERT INTO invitations(id,main_guest_name,reserved_seats,token_hash,token_ciphertext,guest_group) VALUES($1,$2,$3,$4,$5,$6)',[randomUUID(),input.name.trim(),input.seats,hashToken(token),encrypt(token),group]);return json({ok:true});
+  const group=normalizeGuestGroup(input.guestGroup);const token=newToken();await db().query('INSERT INTO invitations(id,main_guest_name,reserved_seats,token_hash,token_ciphertext,guest_group,message_only) VALUES($1,$2,$3,$4,$5,$6,$7)',[randomUUID(),input.name.trim(),input.seats,hashToken(token),encrypt(token),group,input.messageOnly===true]);return json({ok:true});
  }
  if(input.action==='delete'){
   const ids=input.ids;
@@ -48,10 +50,12 @@ export async function POST(request:Request){
  if(input.action==='revoke'){await db().query('UPDATE invitations SET revoked=true WHERE id=$1',[input.id]);return json({ok:true});}
  if(input.action==='sent'){if(typeof input.sent!=='boolean')return json({error:'Invalid sent status.'},400);await db().query('UPDATE invitations SET sent=$1 WHERE id=$2',[input.sent,input.id]);return json({ok:true});}
  if(input.action==='update'){
+  if(typeof input.messageOnly!=='boolean')return json({error:'Choose the invitation type.'},400);
+  if(input.messageOnly)input.seats=1;
   if(typeof input.name!=='string'||input.name.trim().length<2||input.name.length>100||!Number.isInteger(input.seats)||input.seats<1||input.seats>30)return json({error:'Enter a name and 1-30 seats.'},400);
   const group=input.guestGroup===undefined?undefined:normalizeGuestGroup(input.guestGroup);
-  const response=input.attendance==='pending'?null:validateResponse(input,input.seats);
-  await db().query('UPDATE invitations SET main_guest_name=$1,reserved_seats=$2,attendance=$3,additional_names=$4,message=$5,guest_group=CASE WHEN $7::boolean THEN $8::text ELSE guest_group END,submitted_at=CASE WHEN $3::text IS NULL THEN NULL ELSE COALESCE(submitted_at,now()) END WHERE id=$6',[input.name.trim(),input.seats,response?.attendance??null,response?.names??[],response?.message??'',input.id,group!==undefined,group??null]);return json({ok:true});
+  const response=input.messageOnly?(typeof input.message==='string'&&input.message.trim()?validateResponse(input,1,true):null):input.attendance==='pending'?null:validateResponse(input,input.seats);
+  await db().query('UPDATE invitations SET main_guest_name=$1,reserved_seats=$2,attendance=$3,additional_names=$4,message=$5,guest_group=CASE WHEN $7::boolean THEN $8::text ELSE guest_group END,message_only=$9,submitted_at=CASE WHEN $10::boolean THEN COALESCE(submitted_at,now()) ELSE NULL END WHERE id=$6',[input.name.trim(),input.seats,response?.attendance??null,response?.names??[],response?.message??'',input.id,group!==undefined,group??null,input.messageOnly,Boolean(response)]);return json({ok:true});
  }
  return json({error:'Unknown action.'},400);
  }catch(error){if(error instanceof Error&&!(error as Error&{code?:string}).code)return json({error:error.message},400);return json({error:'The change could not be saved.'},503);}

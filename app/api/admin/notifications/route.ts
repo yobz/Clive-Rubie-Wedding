@@ -5,7 +5,7 @@ export const runtime='nodejs';
 const headers={'Cache-Control':'no-store'};
 function json(body:unknown,status=200){return Response.json(body,{status,headers});}
 type Notice={key:string;householdId:string;name:string;attendance:string;submittedAt:string;kind:string};
-async function current():Promise<Notice[]>{const {rows}=await db().query("SELECT id,main_guest_name,attendance,submitted_at,message FROM invitations WHERE submitted_at IS NOT NULL AND attendance IS NOT NULL");return invitationNotifications(rows);}
+async function current():Promise<Notice[]>{const {rows}=await db().query("SELECT id,main_guest_name,attendance,submitted_at,message,message_only FROM invitations WHERE submitted_at IS NOT NULL AND (attendance IS NOT NULL OR message_only)");return invitationNotifications(rows);}
 export async function GET(request:Request){
  if(!session(request))return json({error:'Please sign in.'},401);
  try{const [events,reads]=await Promise.all([current(),db().query('SELECT notification_key FROM admin_notification_reads')]);const seen=new Set(reads.rows.map(row=>row.notification_key));return json({notifications:events.filter(event=>!seen.has(event.key))});}catch{return json({error:'Notifications could not refresh.'},503);}
