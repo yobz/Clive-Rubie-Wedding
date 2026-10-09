@@ -67,3 +67,5 @@
 .admin-secondary-counts .is-declined strong{color:#a33144}.admin-secondary-counts .is-pending strong{color:#876021}.admin-secondary-counts .is-sent strong{color:#496643}.admin-secondary-counts .is-not-sent strong{color:#a96f7b}
 
 .admin-secondary-counts strong{font-size:15px}
+
+.admin-secondary-counts{color:#8b747b;flex-wrap:wrap;gap:28px;padding:20px 3px;font-size:15px}
