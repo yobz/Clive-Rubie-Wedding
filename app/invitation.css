@@ -301,9 +301,9 @@ html body :is(a,button,input,textarea,select){-webkit-tap-highlight-color:transp
 .guest-messages h2{font-size:clamp(27px,3.3vw,45px)}
 .guest-messages .eyebrow{margin-bottom:16px}
 .message-carousel{position:relative;padding:25px 55px 20px;background:url('/invitation/paper-grain.svg');border-block:1px solid #b89a6238}
-.message-slides{display:grid;min-height:180px;align-items:center}
-.message-slide{grid-area:1/1;margin:0;opacity:0;visibility:hidden;transition:opacity .9s ease,visibility .9s;pointer-events:none}
-.message-slide.is-current{opacity:1;visibility:visible;pointer-events:auto}
+.message-slides{position:relative;min-height:180px;overflow:hidden}
+.message-slide{position:absolute;top:0;left:0;width:100%;margin:0;opacity:0;visibility:hidden;transition:opacity .9s ease,visibility .9s;pointer-events:none}
+.message-slide.is-current{position:relative;opacity:1;visibility:visible;pointer-events:auto}
 .message-slide blockquote{margin:0;position:relative}
 .invitation-site .message-slide blockquote p{font-size:clamp(20px,2.5vw,25px);font-style:italic;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere}
 .message-quote{display:block;font-size:70px;color:var(--gold);line-height:.9;margin-bottom:6px}
