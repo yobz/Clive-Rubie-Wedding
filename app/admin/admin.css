@@ -84,3 +84,5 @@
 
 @media(max-width:750px){.admin-primary-actions button,.admin-bulk-actions button,.admin-pagination button,.admin-toolbar button,.admin-modal-actions button,.admin-page .admin-notification-toggle{min-height:44px}.admin-page .admin-notification-toggle{width:44px}.admin-sidebar-toggle::before{content:"";position:absolute;inset:-4px}}
 @media(hover:none){.admin-image-preview{display:none!important}}
+
+.admin-nav-text{gap:8px}.admin-message-count{display:inline-flex;align-items:center;justify-content:center;min-width:22px;padding:2px 6px;border-radius:999px;background:#f2e4e7;color:#67434a;font-size:11px;font-weight:600;line-height:1.4}.admin-message-total{font-weight:600;color:#67434a}
