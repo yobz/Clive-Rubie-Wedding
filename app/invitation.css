@@ -370,6 +370,7 @@ html body :is(a,button,input,textarea,select){-webkit-tap-highlight-color:transp
 .invitation-closing{position:relative;overflow:hidden;isolation:isolate;padding-bottom:25px}
 .invitation-closing>.gifts,.invitation-closing>.rsvp-section,.invitation-closing>.guest-messages{position:relative;z-index:1}
 .invitation-site .invitation-closing .gifts{min-height:0;padding-top:90px;padding-bottom:50px;display:block}
+.invitation-site .gift-copy{max-width:680px;margin:0 auto}.invitation-site .gift-copy>.eyebrow{margin-top:0}.invitation-site .gift-note{font-size:15px;margin-top:22px}.invitation-site .gift-qr{margin:34px auto 0;max-width:300px}.invitation-site .gift-qr img{display:block;width:100%;height:auto;border:10px solid #fff;border-radius:8px;box-shadow:0 8px 24px #6b4d5822}.invitation-site .gift-qr p{font-size:13px;margin-top:14px}
 .invitation-site .closing-floral{width:clamp(300px,24vw,470px);height:800px;opacity:.22;background-size:contain;pointer-events:none;z-index:0}
 .invitation-site .closing-floral-left{left:20px;top:24px;transform:none}
 .invitation-site .closing-floral-right{right:20px;bottom:32px;transform:scaleX(-1)}
