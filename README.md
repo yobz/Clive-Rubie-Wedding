@@ -125,3 +125,7 @@ Like the Sites package, `npm run build` runs `vinext build` directly; it does no
 
 - [vinext Documentation](https://github.com/cloudflare/vinext)
 - [Drizzle D1 Guide](https://orm.drizzle.team/docs/get-started/d1-new)
+
+## Performance and scale notes
+
+See [PROJECT-CONTEXT.md](PROJECT-CONTEXT.md) for the 2026-10-27 review of caching, indexes, pagination, image loading, bundling, database pooling, and Lighthouse work. In short: this small event app already uses a PostgreSQL pool, lazy-loaded local WebP photos, client-side admin pagination, and no-store on private APIs. User-initiated background music now waits to fetch until playback. Avoid adding a load balancer or server cache without a measured need; do not cache guest/invitation data. Lighthouse and dependency cleanup remain unverified follow-ups.
