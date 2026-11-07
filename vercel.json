@@ -1,1 +1,1 @@
-{"framework":"nextjs","buildCommand":"npm run build","installCommand":"npm ci","outputDirectory":".next-app","crons":[{"path":"/api/cron/revoke-pending","schedule":"* * * * *"}]}
+{"framework":"nextjs","buildCommand":"npm run build","installCommand":"npm ci","outputDirectory":".next-app","crons":[{"path":"/api/cron/revoke-pending","schedule":"0 4 * * *"}]}
