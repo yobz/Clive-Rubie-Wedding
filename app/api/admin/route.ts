@@ -45,6 +45,12 @@ export async function POST(request:Request){
   const result=await db().query('DELETE FROM invitations WHERE id = ANY($1::uuid[])',[ids]);
   return json({ok:true,deleted:result.rowCount});
  }
+ if(input.action==='expiry-save'){
+  if(typeof input.runAt!=='string'||!Array.isArray(input.excludedIds)||input.excludedIds.some((id:string)=>typeof id!=='string'||!/^[0-9a-f-]{36}$/i.test(id)))return json({error:'Invalid expiry schedule.'},400);
+  const when=new Date(`${input.runAt}:00+08:00`);if(Number.isNaN(when.getTime())||when.getTime()<=Date.now())return json({error:'Choose a future date and time.'},400);
+  const client=await db().connect();
+  try{await client.query('BEGIN');await client.query("UPDATE pending_link_expiry_jobs SET enabled=false,status='disabled' WHERE enabled=true AND status='scheduled'");const id=randomUUID();await client.query('INSERT INTO pending_link_expiry_jobs(id,run_at,enabled,run_key) VALUES($1,$2,$3,$4)',[id,when,input.enabled!==false,`expiry-${when.toISOString()}`]);if(input.excludedIds.length)await client.query('INSERT INTO pending_link_expiry_exclusions(job_id,invitation_id) SELECT $1,id FROM invitations WHERE id=ANY($2::uuid[])',[id,input.excludedIds]);await client.query('COMMIT');return json({ok:true,id,runAt:when.toISOString()});}catch(error){await client.query('ROLLBACK');throw error;}finally{client.release();}
+ }
  if(typeof input.id!=='string'||!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(input.id))return json({error:'Invalid invitation.'},400);
  if(['update','rotate','revoke','sent'].includes(input.action)){
   if(input.expectedVersion!==undefined&&(!Number.isInteger(input.expectedVersion)||input.expectedVersion<0))return json({error:'Invalid edit version. Refresh the dashboard.'},400);

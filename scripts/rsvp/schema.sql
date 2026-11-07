@@ -29,3 +29,29 @@ CREATE TABLE IF NOT EXISTS admin_notification_reads (notification_key text PRIMA
 
 ALTER TABLE invitations ADD COLUMN IF NOT EXISTS message_only boolean NOT NULL DEFAULT false;
 ALTER TABLE invitations ADD COLUMN IF NOT EXISTS edit_version integer NOT NULL DEFAULT 0;
+
+CREATE TABLE IF NOT EXISTS pending_link_expiry_jobs (
+ id uuid PRIMARY KEY,
+ run_at timestamptz NOT NULL,
+ enabled boolean NOT NULL DEFAULT true,
+ status text NOT NULL DEFAULT 'scheduled' CHECK (status IN ('scheduled','running','completed','failed','disabled')),
+ created_at timestamptz NOT NULL DEFAULT now(),
+ started_at timestamptz,
+ completed_at timestamptz,
+ error_message text,
+ run_key text NOT NULL UNIQUE
+);
+CREATE TABLE IF NOT EXISTS pending_link_expiry_exclusions (
+ job_id uuid NOT NULL REFERENCES pending_link_expiry_jobs(id) ON DELETE CASCADE,
+ invitation_id uuid NOT NULL REFERENCES invitations(id) ON DELETE CASCADE,
+ PRIMARY KEY (job_id, invitation_id)
+);
+CREATE TABLE IF NOT EXISTS pending_link_expiry_audit (
+ id uuid PRIMARY KEY,
+ job_id uuid NOT NULL REFERENCES pending_link_expiry_jobs(id) ON DELETE CASCADE,
+ invitation_id uuid REFERENCES invitations(id) ON DELETE SET NULL,
+ action text NOT NULL,
+ created_at timestamptz NOT NULL DEFAULT now(),
+ details jsonb NOT NULL DEFAULT '{}'::jsonb
+);
+CREATE INDEX IF NOT EXISTS pending_link_expiry_jobs_due_idx ON pending_link_expiry_jobs(enabled, status, run_at);
